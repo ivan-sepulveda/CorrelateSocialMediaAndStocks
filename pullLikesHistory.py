@@ -79,9 +79,10 @@ class InstagramScraper:
                     print("Likes: ", like_count)
                     comment_count = node["edge_media_to_comment"]['count']
                     print("Comments: ", comment_count)
-                    print(node)
+                    # print(node)
                     timestampUnix = node["taken_at_timestamp"]
                     timestampIso = datetime.fromtimestamp(timestampUnix).isoformat()
+                    print("Uploaded: {0}".format(timestampIso))
                 count += 1
 
         return results_a
