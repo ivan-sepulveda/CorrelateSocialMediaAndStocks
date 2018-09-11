@@ -3,6 +3,8 @@ import json
 from pprint import pprint
 import requests
 from bs4 import BeautifulSoup
+from datetime import datetime
+
 
 _user_agents = [
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36'
@@ -62,22 +64,30 @@ class InstagramScraper:
         results_a = []
         try:
             response = self.__request_url(profile_url)
-            print("below is the 'response' ")
-            print(response)
             json_data = self.extract_json_data(response)
             metrics = json_data['entry_data']['ProfilePage'][0]['graphql']['user']['edge_owner_to_timeline_media']["edges"]
         except Exception as e:
             raise e
         else:
+            count = 1
             for node in metrics:
                 node = node.get('node')
                 if node and isinstance(node, dict):
                     results_a.append(node)
-        print(len(results_a))
+                    print("\n{0}________________________________".format(count))
+                    like_count = node["edge_liked_by"]['count']
+                    print("Likes: ", like_count)
+                    comment_count = node["edge_media_to_comment"]['count']
+                    print("Comments: ", comment_count)
+                    print(node)
+                    timestampUnix = node["taken_at_timestamp"]
+                    timestampIso = datetime.fromtimestamp(timestampUnix).isoformat()
+                count += 1
+
         return results_a
 
 k = InstagramScraper()
-results = k.profile_page_recent_posts('https://www.instagram.com/nike/?hl=en')
+results = k.profile_page_recent_posts('https://www.instagram.com/brvnnguyen/?hl=en')
 # pprint(results)
 # for key in results[0]:
 #     print(key)
