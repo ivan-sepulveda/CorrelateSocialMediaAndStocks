@@ -62,6 +62,7 @@ class InstagramScraper:
 
     def profile_page_recent_posts(self, profile_url):
         results_a = []
+        results_b = []
         try:
             response = self.__request_url(profile_url)
             json_data = self.extract_json_data(response)
@@ -72,23 +73,29 @@ class InstagramScraper:
             count = 1
             for node in metrics:
                 node = node.get('node')
+                temp_dict = dict()
                 if node and isinstance(node, dict):
                     results_a.append(node)
-                    print("\n{0}________________________________".format(count))
+                    # print("\n{0}________________________________".format(count))
                     like_count = node["edge_liked_by"]['count']
-                    print("Likes: ", like_count)
+                    temp_dict["like_count"] = node["edge_liked_by"]['count']
+                    # print("Likes: ", like_count)
                     comment_count = node["edge_media_to_comment"]['count']
-                    print("Comments: ", comment_count)
+                    temp_dict["comment_count"] = node["edge_media_to_comment"]['count']
+
+                    # print("Comments: ", comment_count)
                     # print(node)
                     timestampUnix = node["taken_at_timestamp"]
                     timestampIso = datetime.fromtimestamp(timestampUnix).isoformat()
-                    print("Uploaded: {0}".format(timestampIso))
+                    # print("Uploaded: {0}".format(timestampIso))
+                    temp_dict["uploaded"] = datetime.fromtimestamp(timestampUnix).isoformat()
+                    results_b.append(temp_dict)
                 count += 1
 
-        return results_a
+        return results_b
 
 k = InstagramScraper()
-results = k.profile_page_recent_posts('https://www.instagram.com/brvnnguyen/?hl=en')
+results___ = k.profile_page_recent_posts('https://www.instagram.com/nike/?hl=en')
 # pprint(results)
 # for key in results[0]:
 #     print(key)
