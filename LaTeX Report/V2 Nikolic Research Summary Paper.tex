@@ -1,0 +1,426 @@
+\documentclass[12pt]{article}
+\usepackage{wrapfig}
+\usepackage{Foreman}
+\usepackage{amsmath}
+\title{Data Analysis and Monte Carlo Simulations\vspace{-2ex}}
+\author{\vspace{-3ex}Ivan Sepulveda\vspace{-3ex}}
+\date{\vspace{-1.5ex}Summer 2017-  Spring 2018\vspace{-2ex}}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{multicol}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage[english]{babel}
+%The next line causes a paragraph indent
+\setlength{\parindent}{1cm} % Default is 15pt.
+
+
+
+\begin{document}
+\maketitle
+\hrule
+\vspace{2ex}
+A two-dimmensional Monte-Carlo simulation is used to obtain Electron Energy Distrubution Function demonstrated by electrons inside low temperature plasma generated in pure argon.
+\vspace{1ex}
+\hrule
+
+
+\section{Introduction}
+
+Over the past handfull of decades the semiconductor industry has consistently miniturized computer chips but in recent times seems to 
+have hit their limit. The process of using high-speed plasma discharges to create these integraded circuits is known as plasma etching. 
+By studying the properties of plasma, one can hope to be able to improve plasma etching process.
+
+The electron energy distrubition fuction is one of the key properties in understanding low-temperature plasma. One could attempt to 
+experimentally measure the properties of a plasma by inserting a certain tool known as the Laugmuir probe. Unfortunately, as soon as 
+the probe is inserted, the properties of the plasma would change. 
+
+Theoretically, plasma properties could instead be measured using numerical simulations. Many would initally attempt to solve the 
+Boltzman equation. Doing so would require variables including number of electron density within the plasma, the element which 
+composes the plasma as well as density of atoms within the plasma, and what types of collisions are possible (i.e. purely elastic, 
+ionization, excitation, etc.).
+
+Another effective approach would be to create a Monte-Carlo simulation. A Monte-Carlo simulation is a method of approximately solving mathematical and physics problems by the simulation of random qualities. In our study we simulate the propagation of electrons through argon plasma. The electrons follow the electrific field lines but their collisions with Argon atoms are somewhat random: collision angles as well as the types of collisions it 
+experiences are based off probabilities from previously measured cross sections.
+
+First, this report will cover our theoretical calculations and approach. Afterwards, we will go over the logical and analytical assumptions 
+and calculations and how they are calculated and implemented in the scrict. Subsequently leading us to explain results obtain from 
+running the script under different coditions by altering variables including propagations allowed and magnitude of the electric field 
+applied. Finally, we will analyze our results and draw upon conclusions and whether or not they agree with both our theory and results 
+measured from outside sources.
+
+
+\section{Theory}
+Because an electric field causes electron acceleration, if an electron is allowed to 
+accelerate in an electric field contraining Argon plasma, it will collide with 
+various argon atoms. During which, the electron could simply deflect off the atom 
+elastically, ionize the atom, or transfer a quantized amount of kinetic energy to 
+excite the argon atom. The probability for a certain collision is given with a cross-section for said collsion. 
+Using previously measured cross-sections we determine the  electron energy distribution fuction.
+
+In our study we simulated a low-temperature argon plasma produced by heating argon gas with 
+radio-frequency (RF) electromagnetic (EM) waves. 
+Rather than creating 2-D constraints,
+ we limit the number of propagations the electron undergoes.
+Our plasma has a variable DC bias creating an electric field in the +x direction.
+By Newton’s 2nd law, the electron accelerates in the 
+same direction as the electric field with magnitude
+as seen in Eq \ref{ForceChargeField}. Due to the unvarying force,
+the equations of motion for constant acceleration can be applied. 
+
+\beqn
+F_{x}=q_{e}E_{x} =m_{e} a_x\rightarrow a_x=(q_{e} E)/m_{e}
+\label{ForceChargeField}
+\eeqn
+\vspace{-1.2 cm}
+
+\beqn
+v_x = v_{0x} + a_x t
+\label{Initial VelocityX}
+\eeqn
+\vspace{-0.8 cm}
+\beqn
+v_y = v_{0y} = const. 
+\label{Initial VelocityY}
+\eeqn
+% The next line just reduces space between the equations
+% The next line just reduces space between the equations
+\vspace{-0.8 cm}
+\beqn
+x = x_0 + v_{0x} t + \frac{1}{2} a_x t^2
+\label{Initial Position}
+\eeqn
+
+
+
+
+
+
+\subsection{2D Collision Theory}
+The collision theory is derived from the conservation of momentum and total energy.
+
+\beqn
+\vec{p_e} + \vec{p_a} = \vec{p_e}' + \vec{p_a} ' + \vec{p_e}
+\label{conserve momentum p}
+\eeqn
+\vspace{-0.8 cm}
+\beqn
+m_e \vec{v_{i}} = m_a \vec{v_{a}} + m_e \vec{v_{f}}
+\label{initial final momentum mv}
+\eeqn
+\vspace{-0.8 cm}
+\beqn
+m_e \vec{v_{ix}} = m_a \vec{v_{ax}} + m_e \vec{v_{fx}}
+\label{initial final momentum mv 2dx}
+\eeqn
+\vspace{-0.8 cm}
+\beqn
+m_e \vec{v_{iy}} = m_a \vec{v_{ay}} + m_e \vec{v_{fy}}
+\label{initial final momentum mv 2dy}
+\eeqn
+
+After which we procede to use convervation of energy.
+
+\beqn
+E_i = E_f + E_a + \Delta E_{loss}
+\label{coserve energy E}
+\eeqn
+\vspace{-0.8 cm}
+\beqn
+\frac{1}{2}m_e {v_i}^2 = \frac{1}{2}m_e {v_f}^2 + \frac{1}{2}m_a {v_a}^2 + \Delta E_{loss}
+\label{coserve energy 1/2mv}
+\eeqn
+\vspace{-0.8 cm}
+\beqn
+v_{ix} = \cos\theta
+\label{cos}
+\eeqn
+\vspace{-0.8 cm}
+\beqn
+v_{ix} = \sin\theta
+\label{sin}
+\eeqn
+
+The atom cannot backscatter so to preserve the symetry in two our two dimensional setup, we defined angle $\theta$ as the incident 
+angle of an electron relative to the x-axis and $\gamma$ as the angle at which the electron scattered off the argon atom relative to its 
+inital trajectory. By doing so, we can define angle $\alpha$ such that.
+
+\beqn
+\tan\alpha = \tan(\theta + \gamma)
+\label{ sin}
+\eeqn
+
+Therefore $\alpha$ is the electron scattering angle relative to the x-axis as seen in Fig. \ref{Collision Illustrations}. We generated the scattered angle $\gamma$ as a random number between $-\frac{\pi}{2} \leftrightarrow + \frac{\pi}{2}$, found $\alpha$ then expressed all quantities in terms of $\tan\alpha$. After applying these changes as well as manipulating Eqs. \ref{conserve momentum p} - \ref{sin}, we obtained  $v_a$ and it's horizontal component $v_{ax}$ which allowed us to determine the new x and y components of the electrons velocity $\vec{v_{f}}$ as well as the electrons final energy $E_f$
+
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\includegraphics[width = \textwidth]{"Q1 Electron Collision Illustration".pdf}
+		\caption{Quadrant 1}
+		\label{Q1 Collision Illustration}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\includegraphics[width = \textwidth]{"Q4 Electron Collision Illustration".pdf}
+		\caption{Quarant 2}
+		\label{Q4 Collision Illustration}
+	\end{subfigure}
+	\caption{Collision Illustration}
+	\label{Collision Illustrations}
+\end{figure}
+
+
+
+
+
+\beqn
+v_{a}  =  \frac{(v_{ix} + v_{iy}\tan\alpha)\frac{1}{\sqrt{1 + \tan^2\alpha}} \pm\sqrt{(v_{ix} + v_{iy}\tan\alpha)^2 \frac{1}{1+\tan^2\alpha}- \frac{2 \Delta E}{m_a}(1+\frac{m_a}{m_e})} }{1+\frac{m_a}{m_e}} 
+\label{va}
+\eeqn
+
+\beqn
+v_{a,}  =  \frac{m_e}{m_a + m_e}  \frac{v_{ix} + v_{iy}\tan\alpha}{\sqrt{1 + \tan^2{\alpha}}} 
+\label{vaInelastic}
+\eeqn
+
+\beqn
+v_{ax}  = \frac{v_a}{\sqrt{1+ \tan^2\alpha})}
+\label{vax}
+\eeqn
+
+
+\subsection{3D Collision Theory}
+
+Here in this section I will elaborate on the math and reasoning behind collisions similar to how I did with the 2D case. Temporarily using Kushner's figures but I am drawing my own in Adobe Illustrator! I'll also add those matrix equations and transformations in an easy to read format.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = \textwidth]{"Angles 2".png}
+	\caption{Cross Section vs Energy}
+	\label{Collision in Rotated Coordinate System}
+\end{figure}
+
+Our 3-Dimmensional collision theory redefines some angles as seen in the figures below
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = \textwidth]{"Angles 1".png}
+	\caption{Collision Process}
+	\label{3D Collision Process}
+\end{figure}
+
+
+
+
+\subsection{Cross Sections}
+
+The cross section of a certain type of collision is a function $\sigma(e)$ of the electrons energy $\epsilon$
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = \textwidth]{"MonteCarloProbability".png}
+	\caption{Weighted Probabilities for an electron with 15 eV.}
+	\label{Weighted Probability}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width = \textwidth]{"Cross Section vs Energy".pdf}
+	\caption{Cross Section vs Energy}
+	\label{fig:right}
+\end{figure}
+
+\subsection{Collision Frequencies}
+
+
+{\fontfamily{cmtt}\selectfont def collision\_frequency(energy\_eV, process\_cross\_section\_dictionary):\\
+	\hspace*{3ex}if isnan(energy\_eV) or energy\_eV > 99.99:\\
+	\hspace*{6ex}energy\_eV = 99.99\\
+	\hspace*{3ex}cf = (2*energy\_eV*eV\_J/me)**0.5\\
+	\hspace*{3ex}cf = cf*process\_cross\_section\_dictionary[iround(ener\_eV)]\\
+	\hspace*{3ex}cf = cf *argon\_volume\_density\\
+	\hspace*{3ex}return cf\\
+}
+
+
+
+{\fontfamily{cmtt}\selectfont def total\_CF(energy, dictionary\_of\_cs\_dictionaries):\\
+	\hspace*{2ex}sum = 0\\
+	\hspace*{2ex}for processD in dictionary\_of\_cs\_dictionaries:\\
+	\hspace*{4ex}sum += collision\_frequency(energy, dictionary\_of\_cs\_dictionaries[processD)\\
+	\hspace*{2ex}return sum\\
+	\\}
+Note: The function "isnan()" returns a boolean depending on whether or not "energy\_eV" is a real number or decimal. At timest 
+calculations in pythan can become so large or  small that it is not considered a number anymore. If this happens durring the 
+collision-propagation process, the electrion comes back with the string "NaN" in place of a value for it's energy. This is a built-in aspect of python with the purpose as to not to overwhelm the computer. ("NaN being short for "Not a Number").\\
+
+
+
+%How to temporarily use different font below
+%This is typeset in default font.  {\fontfamily{cmtt}\selectfont This is typeset in tgpagella.}  And default font again.\\
+
+After moving the electron in this time according to the equations of motion, you should calculate the new position (x and y) and the new velocity $v$. We calculate the magnitude of the velocity as
+$v = \sqrt{v_x ^2 + v_y ^2}$. Since the only force acting upon the electron is the Coulomb force F = qE, all the work done by this force will be converted into electron’s kinetic energy and is calculated 
+using the standard $E = \frac{1}{2}m_e v^2$. where v is the magnitude of the electron’s velocity. Up until the first collision the electron will only have a $v_x$ component. To determine if the electron collided 
+or not, first we determine its Maximum Total collision frequency and make the assumption that at that energy, the electron has to collide whether it be elastically or inelastic. For every other energy, there 
+will be a null collision frequency (NCF) greater than zero. 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width = \textwidth]{"Collision Frequency vs Energy".pdf}
+	\caption{Collision Frequency vs Energy}
+	\label{fig:left}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width = \textwidth]{"Collision Frequency vs Energy (Excluding Null)".pdf}
+	\caption{Collision Frequency vs Energy}
+	\label{fig:left}
+\end{figure}
+
+
+
+
+
+\begin{table}[h]
+	\centering
+	
+	\begin{tabular}{c c c c c c c c c}
+		
+		Energy (eV) &	$f_{elastic}$ &  $f_{excite}$& $f_{ion}$ & 	$f_{tot}$ &  $f_{null}$ & $f_{tot + null}$ \\
+		
+		&	($\times10^6 s^{-1}$) &  	($\times10^6 s^{-1}$) & 	($\times10^6 s^{-1}$) & 	($\times10^6 s^{-1}$)	&  ($\times10^8 s^{-1}$)&($\times10^8 s^{-1}$) \\
+		
+		\hline
+		
+		0 &	0 & 0 & 0 &0 & 55.54 &55.54\\
+		
+		5 & 8.96 & 15.29& 0	&2.425 & 53.11 & 55.54	\\
+		
+		19.42&26.82 & 527.16& 139.26& 5,553.810&0.00003 &55.54\\
+		
+		19.43& 26.81& 527.18& 139.74& 5,553.812& 0.000009&55.54\\
+		
+		19.44& 26.79& 527.19& 140.21& 5,553.813&0 &55.54\\
+		
+	\end{tabular}
+	\label{cfs}
+\end{table}
+
+
+\begin{table}[]
+	\centering
+	\caption{My caption}
+	\label{my-label}
+	\begin{tabular}{lllllll}
+		Energy (eV) & $f_{elastic}$         & $f_{s3p7}$            & $f_{other excite}$    & $f_{ion}$             & $f_{tot}$             & $f_{null}$            \\
+		& ($\times10^8 s^{-1}$) & ($\times10^8 s^{-1}$) & ($\times10^6 s^{-1}$) & ($\times10^7 s^{-1}$) & ($\times10^8 s^{-1}$) & ($\times10^8 s^{-1}$) \\
+		0           & 0.00                  & 0.00                  & 0.00                  & 0.00                  & 0.00                  & 55.54                 \\
+		5           & 0.90                  & 0.19                  & 133.49                & 0.00                  & 2.43                  & 53.11                 \\
+		10          & 2.81                  & 0.55                  & 377.57                & 0.00                  & 7.14                  & 48.40                 \\
+		15          & 3.15                  & 10.20                 & 2615.37               & 0.02                  & 39.51                 & 16.03                 \\
+		19.41       & 2.68                  & 16.57                 & 3614.86               & 1.39                  & 55.54                 & 0.00                  \\
+		19.42       & 2.68                  & 16.57                 & 3614.81               & 1.39                  & 55.54                 & 0.00                  \\
+		19.43       & 2.68                  & 16.57                 & 3614.76               & 1.40                  & 55.54                 & 0.00                  \\
+		19.44       & 2.68                  & 16.57                 & 3614.71               & 1.40                  & 55.54                 & 0.00                  \\
+		25          & 2.07                  & 16.38                 & 3433.12               & 3.83                  & 53.17                 & 2.37                  \\
+		30          & 1.79                  & 15.30                 & 3221.72               & 5.85                  & 49.89                 & 5.65                  \\
+		35          & 1.73                  & 14.36                 & 3013.47               & 7.61                  & 46.99                 & 8.55                  \\
+		40          & 1.64                  & 13.47                 & 2874.28               & 8.97                  & 44.75                 & 10.79                
+	\end{tabular}
+\end{table}
+
+\subsection{Cumulative Probabilities}
+We'll have to come back to this
+
+\section{Code}
+\subsection{Code Structure}
+As can be seen in Figure \ref{Code Structure} script was split into two main processes: running the simulation and plotting subsequent 
+results. The former requires many more 
+requisites: in order to create, propagate, and collide the electron, we first need to determine which collision the electron will experience 
+any at all. Probablities for each collision type will depend on the electrons energy just before impact. Our simulation is accurate up to 
+two decimal points for electron energy in units of electron volts. Unfortuantely we run into an obsticle since the cross sections 
+provided are given in multiples of two. By runing a quick script to linearly interpolate these cross sections given in the DAT files we 
+overcome this obstacle. Plotting the results is a bit more straightforward. Specific python libraries allow us to quickly create a 
+scatterplot for Energy Distrubution as well as the locations of the collisions exprienced. One could even sacrifice computational runtime 
+and plot the path experienced by every single electron.
+
+\begin{figure}[h]
+	\centering
+ 	\includegraphics[width = 12.5cm]{"MC Code Structure".png}
+	\caption{Code Structure}
+	\label{Code Structure}
+\end{figure}
+
+
+\subsection{Calculating Time of Flight}
+Given the plasma's particle density and the electrons energy, it's time of flight (TOF) can be calculate. Here we define our TOF to be the time interval between collisions. We calculate our TOF as $\Delta t$ in equations \ref{E > 0.01} -  
+\ref{E <= 0.01} as a function of Total Collision Frequency (TCF) and $r$, a randomly generated float between 0 and 1. Unfortunately we 
+run into an issue at first propagation. Becuse initial  energy is set at 0eV, $TCF = 0$. This is corrected by applying a condition such that 
+if the electron has less than 0.01eV, it’s $\Delta t$ will be exactly 100 nanoseconds. 
+
+
+
+\beqn
+E > 0.01eV: dt = \frac{-\log(1-r)}{TCF}
+\label{E > 0.01}
+\eeqn
+\vspace{-0.8 cm}
+\beqn
+E <= 0.01eV: dt = 10^{-7} s
+\label{E <= 0.01}
+\eeqn
+
+
+
+
+
+
+
+\section{Results}
+
+\begin{itemize}
+	\item Simulated experiment
+	\item 2d Ar Plasma
+	\item atom density
+	\item we included all the excitation collisions from
+		\item  ground - 24 excel
+		\item 1st excited 
+\end{itemize}
+
+
+
+We start off by generating some intial conditions.
+First electron is created its initial position, velocity, and acceleration are set to zero. For simplicity, we round
+electron mass and charge down to their first decimal: $m_{e} = 9.1\cdot10^{-31} kg$, $q_{e} = 
+1.6\cdot10^{-19} C$. We assume that number of 
+argon atoms per unit area is $N = 10^{21} m^2$. 
+
+
+
+
+\subsection{Interpolating Cross Sections}
+After interpolating all given cross sections and plugging them into eq. \ref{Collision 
+	Frequency} we find that $TCF_{Max}  =  5,553.813\cdot10^6$ at 19.44 eV. At this exact 
+energy, we make it so that the electron has to collide, or in other words at this energy 
+$f_{null} = 0 $ Hz. As displayed in the table below, we see that null frequency quickly starts to increase the within just a few electron volts of the our peak. 
+\beqn
+f = N_{A}\sigma(\epsilon) \sqrt{\frac{2\epsilon}{m_{e}}} 
+\label{Collision Frequency}
+\eeqn
+
+
+
+
+
+
+
+
+\end{document}

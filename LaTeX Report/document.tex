@@ -1,0 +1,663 @@
+\documentclass[12pt]{article}
+\usepackage{wrapfig}
+\usepackage{Foreman}
+\usepackage{amsmath}
+\title{Retail Fashion Stock Correlation\vspace{-2ex}}
+\author{Ivan Sepulveda \\ Faculty Advisor: Milka Nikolic}
+\date{\vspace{-1.5ex}Summer 2017-  Summer 2018\vspace{-2ex}}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{multicol}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage[english]{babel}
+\usepackage[colorlinks]{hyperref}
+
+\usepackage[table]{xcolor}% http://ctan.org/pkg/xcolor
+
+%The next line causes a paragraph indent
+\setlength{\parindent}{1cm} % Default is 15pt.
+
+
+\begin{document}
+\maketitle
+\hrule
+\vspace{2ex}
+Social media is an increasingly significant aspect of our daily lives; millennials and generation-X especially. This project was inspired by social media ‘influencers’, Kylie Jenner’s snapchat tweet stock reaction, and the ‘Nosedive’ episode from the Netflix Series Black Mirror. 
+\vspace{1ex}
+\hrule
+
+
+\section{Introduction}
+We are going to try and correlate a clothing retailers stock price changes with their social media presence. For example, if Nike’s stock price rose in June but fell in July, did they receive/lose a correlating number of likes, comments, video plays, etc.? Equations 1.1 and 1.2 respectively illustrate how we obtain the change in stock price $\Delta S_\$$ and $\Delta S_\% $
+
+
+
+\beqn
+\overline{S}= \frac{\sum_{i=1}^{N} { S_{\$,i}}}{N}
+\label{Newtons 2nd law}
+\eeqn
+
+
+
+\beqn
+\Delta S_\$ = S_{avg}
+\label{Newtons 2nd law}
+\eeqn
+
+Over the past handfull of decades the semiconductor industry has consistently miniturized computer chips but in recent times seems to 
+have hit their limit. The process of using high-speed plasma discharges to create these integraded circuits is known as plasma etching. 
+By studying the properties of plasma, one can hope to be able to improve plasma etching process.
+
+The electron energy distribution function is one of the key properties in understanding low-temperature plasma. One could attempt to 
+experimentally measure the properties of a plasma by inserting a certain tool known as the Laugmuir probe. Unfortunately, as soon as 
+the probe is inserted, the properties of the plasma would change. 
+
+Theoretically, plasma properties could instead be measured using numerical simulations. Many would initally attempt to solve the 
+Boltzman equation. Doing so would require variables including number of electron density within the plasma, the element which 
+composes the plasma as well as density of atoms within the plasma, and what types of collisions are possible (i.e. purely elastic, 
+ionization, excitation, etc.).
+
+Another effective approach would be to create a Monte-Carlo simulation. A Monte-Carlo simulation is a method of approximately solving mathematical and physics problems by the simulation of random qualities. In our study we simulate the propagation of electrons through argon plasma. The electrons follow the electrific field lines but their collisions with Argon atoms are somewhat random: collision angles as well as the types of collisions it 
+experiences are based off probabilities from previously measured cross sections.
+
+First, this report will cover our theoretical calculations and approach. Afterwards, we will go over the logical and analytical assumptions 
+and calculations and how they are calculated and implemented in the scrict. Subsequently leading us to explain results obtain from 
+running the script under different coditions by altering variables including propagations allowed and magnitude of the electric field 
+applied. Finally, we will analyze our results and draw upon conclusions and whether or not they agree with both our theory and results 
+measured from outside sources.
+
+
+\section{Theory}
+
+\subsection{Plasma description}
+The word "plasma" comes from a Greek word "$\pi\lambda\alpha\sigma\mu\alpha$" which means "mold" and it describes the property of ionized gas to follow the shape of vessel where it was generated. To understand the concept of plasma we first start with the description of the gas consisting of mostly neutral particles (atoms and molecules). Such gas can be made mostly of atoms (inert gases like neon or argon) or of molecules (O$_2$, H$_2$) or even mixtures like air. One of the main characteristics of the neutral gas is that all particles have the same macroscopic properties (energy, temperature, velocity, density...).
+
+When the gas is heated, electrons in atoms and molecules can gain enough energy to break the atomic/molecular bonds and free themselves. This process commonly known as ionziation. When only one electron is stripped from the atom/molecule, the atom/molecule is singly ionized, when two electrons are stripped the particle is doubly ionized and so forth. If the electron doesn't gain enough energy to break the atomic/molecular bond it may jump to an empty orbital at higher energy level of the atom/molecule. This process is called excitation. Electrons cannot stay long in excited energy levels (about $10^{-9}$ s) and will radiate down to lower energy levels while emitting photons of energy equal to the energy initially gained. Electron transitions from some energy levels are not allowed by laws of quantum mechanics and these energy levels are called metastable levels. Electrons in these metastable states can go back to ground state only during the collision between two atoms/molecules through a process a known as quenching. In addition, the free electrons can also collide with atoms/molecules and either elastically scatter off of the particles or ionize or excite the given particle. This heated gas consisting of neutral particles, excited particles, positive ions, negative ions, and free electrons that is overall still neutral is called plasma.
+
+Plasmas heated to the temperatures higher than 10,000 K have most of their particles ionized and are called high temperature plasmas (stars, tokamak,...). These plasmas are in thermal equilibrium which means that all plasma species (electrons, ions, and neutral particles) have the same temperature (ref. H. Griem, Plasma Spectroscopy (McGraw-Hill, New York, 1964). On the other hand, each species in the low temperature, nonequilibrium plasmas (heated below 10,000 K) has different properties. The electron temperatures may reach several thousand Kelvins while heavy particles have temperatures similar to room temperature. There are "hot" electrons that collide with plasma species and are capable of exciting and ionizing atoms and molecules, generating in that way new electrons necessary to sustain plasma system and producing a chemically-rich environment. As a consequence, nonequilibrium plasmas have a particular use in the plasma processing industry for applications to plasma cleaning and etching, or to the deposition of thin film layers. Hence, characterizing these discharges (i.e. describing the conditions for their generation, estimating parameters for optimal use, etc.) is of vital importance. 
+
+
+\subsection{Collision theory}
+
+In our study we simulated electron motion inside low temperature argon plasma generated by heating argon gas with radio-frequency (RF) electromagnetic (EM) waves in order to calculate the distribution of electron energies inside the plasma. We applied a DC biased voltage to our plasma in order to create an electric field in the positive x direction. 
+Due to the applied electric field, electrons accelerated within the plasma in the direction opposite to the electric field. Based on the laws of classical mechanics (Newton’s 2nd law), we derived the 3D equations of motion of the electron:
+
+\beqn
+\sum{\vec{F}} = e\vec{E} = m_{e} \vec{a},
+\label{Newtons 2nd law}
+\eeqn
+
+where $e = 1.6\times10^{-19}$ C is the charge of an electron, $m_{e} = 9.1\times10^{-31}$ kg is the mass of an electron, and $\vec{a}$ is the vector acceleration of the electron.
+
+In x direction:
+
+\beqn
+a_x=\frac{eE}{m_{e}} 
+\label{ForceChargeField}
+\eeqn
+%\vspace{-1.2 cm}
+
+\beqn
+v_x = v_{0x} + a_x t
+\label{Initial VelocityX}
+\eeqn
+%\vspace{-0.8 cm}
+
+\beqn
+x = x_0 + v_{0x} t + \frac{1}{2} a_x t^2
+\label{Initial Position}
+\eeqn
+
+In y direction:
+\beqn
+a_y = 0 \rightarrow v_y = v_{0y} = const \rightarrow y = y_0 + v_{0y}t
+\label{Initial VelocityY}
+\eeqn
+
+In z direction:
+\beqn
+a_z = 0 \rightarrow v_z = v_{0z} = const \rightarrow z = z_0 + v_{0z}t
+\label{Initial VelocityZ}
+\eeqn
+% The next line just reduces space between the equations
+% The next line just reduces space between the equations
+%\vspace{-0.8 cm}
+
+While moving inside the plasma, electrons could collide with argon atoms or with other electrons. In this study we only included electron collisions with argon atoms while the electron-electron collisions were neglected. There are two types of collisions that the electron could undergo:
+\begin{itemize}
+\item Elastic collision - where the total kinetic energy of the system electron-argon atom is conserved.
+\item Inelastic collision - where the fraction of the electron's initial kinetic energy is lost in the collision. The lost energy could be used to heat the system, deform argon atoms, ionize or excite the argon atoms etc.
+\end{itemize}
+Our simulation includes probabilities for these types of electron collisions: elastic scattering off of the argon atom, ionization or excitation of the argon atom, or no collision at all. The probability for a certain collision is calculated based on an experimentally measured cross-section for given collision. A detailed description on how we obtained the probabilities for various collisions is given in subsections below.
+
+During the collision with the argon atom, electron will change its energy and velocity (magnitude and direction). We applied the conservation of momentum and total energy to find electron energy and velocity after the collision:
+\beqn
+\vec{p_e} + \vec{p_a} = \vec{p_e}' + \vec{p_a} ' 
+\label{conserve momentum p}
+\eeqn
+
+\beqn
+E_i = E_f + E_a + \Delta E_{loss}
+\label{coserve energy E}
+\eeqn
+where $\vec{p_e}$ and $\vec{p_a}=0$ are electron and atom momenta before the collision, $\vec{p_e}'$, and $\vec{p_a}'$ are electron and atom momenta after the collision, $E_i$ is electron initial kinetic energy, $E_f$ is electron's kinetic energy after the collision, $E_a$ is the kinetic energy of the argon atom after the collision, and $\Delta E_{loss}$ is the energy lost during the inelastic collision (to ionize or excite the argon atom). 
+
+Let's assume that the electron traveling in positive z-direction ($\vec{v_i}=(0,0,v_i)$) collides with the stationary argon atom and scatters at angles $\theta$ and $\phi$ in 3D, see Fig. \ref{3D Collision In Rotated Coordinate System}.
+The electron velocity after the collision in spherical coordinates is given as
+\beqn
+\vec{v_f} = v_f cos \phi \, sin \theta \, \hat{i} +  v_f sin \phi \, sin \theta \, \hat{j} + v_f \, cos \theta \, \hat{k}
+\label{final velocity}
+\eeqn
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale = 0.25]{"V_initial aligned with z-axis B".pdf}
+	\caption{For simplicity, we've rotated the coordinate system to align $V_{i}$ with the z-axis. $\phi$ is defined as the angle made by the projection of $V_{f}$ on the ZY-Plane while $\theta$ is the angle between $V_{i}$ and $V_{f}$.}
+	\label{3D Collision In Rotated Coordinate System}
+\end{figure}
+
+The conservation of momentum will give us
+\beqn
+0 =  m_e v_{f} cos \phi \, sin \theta +m_a v_{ax} \rightarrow m_a^2 v_{ax}^2 =  m_e^2 v_{f}^2 cos^2 \phi \, sin^2 \theta
+\label{initial final momentum mv 3dx}
+\eeqn
+\beqn
+0 =  m_e v_{f} sin \phi \, sin \theta +m_a v_{ay} \rightarrow m_a^2 v_{ay}^2 =  m_e^2 v_{f}^2 sin^2 \phi \, sin^2 \theta
+\label{initial final momentum mv 3dy}
+\eeqn
+\beqn
+m_e v_i =  m_e v_{f}  \, cos \theta +m_a v_{az} \rightarrow m_a^2 v_{az}^2 =  m_e^2 (v_i-v_{f} cos \theta)^2
+\label{initial final momentum mv 3dz}
+\eeqn
+Adding the three equations leads to
+\beqn
+m_a^2 v_{a}^2 =  m_e^2 v_i^2 + m_e v_f^2 - 2m_e^2 v_i v_f cos \theta 
+\label{final momentum}
+\eeqn
+We can substitute $v_a$ in the equation for the conservation of energy
+\beqn
+\frac{1}{2}m_e {v_i}^2 = \frac{1}{2}m_e {v_f}^2 + \frac{1}{2}m_a {v_a}^2 + \Delta E_{loss}
+\label{conserve energy 1/2mv}
+\eeqn
+and solve for the magnitude of the electron velocity after the collision
+\beqn
+v_i^2 - \frac{m_e}{m_a} {v_i}^2 - \frac{2 \Delta E_{loss}}{m_e}  = \frac{m_e}{m_a} {v_f}^2 + v_f^2 - \frac{2 m_e}{m_a}v_i v_f cos \theta
+\label{final velocity solution}
+\eeqn
+The general solution has a pretty complex form:
+\beqn
+v_f \sqrt{1+\frac{m_e}{m_a}} = \frac{m_e}{m_a} \frac{v_i}{\sqrt{1+\frac{m_e}{m_a}}} cos \theta + \sqrt{v_i^2 - \frac{m_e}{m_a} {v_i}^2 - \frac{2 \Delta E_{loss}}{m_e}},
+\label{final velocity general solution}
+\eeqn
+but since $m_e << m_a$, the equation can be simplified to
+\beqn
+v_f =  \sqrt{v_i^2 (1 - \frac{2m_e}{m_a} (1 - cos \theta)) - \frac{2 \Delta E_{loss}}{m_e}}.
+\label{final velocity simple solution}
+\eeqn
+
+In general, the initial velocity of the electron can be in any direction ($\vec{v_i} = (v_i, \alpha$, $\beta$)) so in order to obtain the direction of the final velocity of the electron we will first rotate the coordinate system about $\alpha$ and $\beta$ to align $\vec{v_i}$ with z-axis, as shown in Fig. \ref{3D Collision Illustrations}. {\color{blue}{fBetter diagrams drawn.}} By applying rotation matrices we get
+\beqn
+\vec{v_i}' = R_y (\alpha) R_z(\beta) \vec{v_i} = v_i
+  \begin{pmatrix}
+    cos \alpha & 0 & - sin \alpha \\
+    0 & 1 & 0 \\
+    sin \alpha & 0 &  cos \alpha \\
+  \end{pmatrix}
+  \begin{pmatrix}
+    cos \beta & sin \beta & 0 \\
+    -sin \beta & cos \beta &  0 \\
+    0 & 0 & 1 \\
+  \end{pmatrix}
+  \begin{pmatrix}
+    sin \alpha \, cos \beta \\
+  	 sin \alpha \, sin \beta  \\
+    cos \alpha \\
+  \end{pmatrix}
+\label{rotation matrix a and b}
+\eeqn
+\beqn
+\vec{v_i}' = v_i
+  \begin{pmatrix}
+    0 \\
+  	0 \\
+    1 \\
+  \end{pmatrix}
+\label{rotation matrix a and b final}
+\eeqn
+
+\begin{figure}[h]
+
+	\centering
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\includegraphics[width = \textwidth]{"AnglesOneOfFour".pdf}
+		\label{AnglesOneOfFour}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\includegraphics[width = \textwidth]{"AnglesTwoOfFour".pdf}
+		\label{AnglesTwoOfFour}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\includegraphics[width = \textwidth]{"V_initial aligned with z-axis B".pdf}
+		\caption{$\phi$ is defined as the angle made by the projection of $V_{f}$ on the ZY-Plane while $\theta$ is the angle between $V_{i}$ and $V_{f}$.}
+		\label{AnglesThreeOfFour}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\includegraphics[width = \textwidth]{"RotateNegativeAlphaBeta".pdf}
+		\caption{We now revert back to our original cordinate system by rotating by $-\alpha$ and $-\beta$}
+		\label{AnglesFourOfFour}
+	\end{subfigure}
+	\label{3D Collision Illustrations}
+	\caption{Collision Illustrations}
+\end{figure}
+
+
+Then we will rotate $\vec{v_i}'$ about $\theta$ and $\phi$ to find the direction of  $\vec{v_f}$, 
+
+\beqn
+\vec{v_f} = R_z (-\phi) R_y(\theta) \vec{v_i}' = v_i
+	\begin{pmatrix}
+      cos \phi & -sin \phi & 0 \\
+      sin \phi & cos \phi &  0 \\
+      0 & 0 & 1 \\
+  \end{pmatrix}
+  \begin{pmatrix}
+    cos \theta & 0 &  sin \theta \\
+    0 & 1 & 0 \\
+    -sin \theta & 0 &  cos \theta \\
+  \end{pmatrix}
+ \begin{pmatrix}
+    0 \\
+  	0 \\
+    1 \\
+  \end{pmatrix}
+\label{rotation matrix theta and phi}
+\eeqn
+\beqn
+\vec{v_f} = v_i
+  \begin{pmatrix}
+    sin \theta \, cos \phi \\
+  	 sin \theta \, sin \phi  \\
+    cos \theta \\
+  \end{pmatrix}
+\label{rotation matrix theta and phi final}
+\eeqn
+We take into account the change in speed calculated in Eq. \ref{final velocity simple solution} and rotate the coordinate system back about $-\alpha$ and $-\beta$ to original orientation
+\beqn
+\vec{v_f} = R_z (-\beta) R_y(\alpha) \vec{v_f} = v_f
+   \begin{pmatrix}
+     cos \beta & -sin \beta & 0 \\
+     sin \beta & cos \beta &  0 \\
+     0 & 0 & 1 \\
+   \end{pmatrix}	
+   \begin{pmatrix}
+     cos \alpha & 0 & sin \alpha \\
+     0 & 1 & 0 \\
+     -sin \alpha & 0 &  cos \alpha \\
+   \end{pmatrix}
+   \begin{pmatrix}
+     sin \theta \, cos \phi \\
+  	 sin \theta \, sin \phi  \\
+    cos \theta \\
+  \end{pmatrix}
+\label{final matrix rotation}
+\eeqn
+\beqn
+\vec{v_f} = v_f
+  \begin{pmatrix}
+    sin \alpha \, cos \beta \, cos \theta - sin \beta \, sin \phi \, sin \theta + sin \theta cos \alpha \, cos \beta \, cos\phi  \\
+  	 sin \alpha \, cos \beta \, cos \theta + sin \beta \, sin \theta \, cos \alpha \, cos \phi - sin \theta cos \beta \,  sin\phi  \\
+    -sin \alpha \, sin \theta \, cos \theta + cos \alpha \, cos \theta \\
+  \end{pmatrix}
+\label{final matrix}
+\eeqn
+
+We also ran our simulation in two dimensions using the same approach. Conservation of momentum in 2D
+\beqn
+m_e v_i =  m_e v_{f} cos \theta  + m_a v_{ax} \rightarrow m_a^2 v_{ax}^2 =  m_e^2 (v_i-v_{f} cos \theta)^2
+\label{initial final momentum mv 2dx}
+\eeqn
+\beqn
+0 =  m_e v_{f} sin \theta + m_a v_{ay} \rightarrow m_a^2 v_{ay}^2 =  m_e^2 v_{f}^2 sin^2 \theta 
+\label{initial final momentum mv 2dy}
+\eeqn
+Adding the two equations leads to
+\beqn
+m_a^2 v_{a}^2 =  m_e^2 v_i^2 + m_e v_f^2 - 2m_e^2 v_i v_f cos \theta 
+\label{final momentum in 2d}
+\eeqn
+It is obvious that Eq. \ref{final momentum in 2d} is equal to Eq. \ref{final momentum}, which means that the final velocity of the electron in 2D can be found using the same equation as in 3D, Eq. \ref{final velocity simple solution}.
+
+For the electron traveling at an angle $\alpha$ relative to x-axis, the direction of the final velocity is
+\beqn
+\vec{v_i}' = v_i
+  \begin{pmatrix}
+    cos \alpha & sin \alpha \\
+    -sin \alpha  &  cos \alpha \\
+  \end{pmatrix}
+  \begin{pmatrix}
+    cos \alpha \\
+  	sin \alpha 
+  \end{pmatrix}
+  = v_i
+  \begin{pmatrix}
+    1 \\
+    0 \\
+  \end{pmatrix}
+\label{rotation matrix a and b in 2d}
+\eeqn
+
+\beqn
+\vec{v_f} = v_i
+  \begin{pmatrix}
+    cos \theta & -sin \theta \\
+    sin \theta &  cos \theta \\
+  \end{pmatrix}
+  \begin{pmatrix}
+    1 \\
+    0 \\
+  \end{pmatrix}
+  = v_i
+  \begin{pmatrix}
+    cos \theta \\
+    sin \theta \\
+  \end{pmatrix}
+\label{scattering matrix a and b in 2d}
+\eeqn
+
+\beqn
+\vec{v_f} = v_f
+  \begin{pmatrix}
+    cos \alpha & -sin \alpha \\
+    sin \alpha &  cos \alpha \\
+  \end{pmatrix}
+  \begin{pmatrix}
+    cos \theta \\
+    sin \theta \\
+  \end{pmatrix}
+  = v_f
+  \begin{pmatrix}
+    cos (\alpha + \theta) \\
+    sin (\alpha + \theta) \\
+  \end{pmatrix}
+\label{final matrix a and b in 2d}
+\eeqn
+
+
+\subsection{Cross Sections}
+
+Collisional cross-section is the fundamental quantity to describe a collision. It is the probability for a given process to happen and is defined as the area around colliding particles within which they must meet in order to collide with each other. Therefore the cross-section is given in the units of area [m$^2$]. 
+
+To fully understand the meaning of the cross-section let's imagine an electron with  energy $\varepsilon$, traveling in the positive z-direction. The electron scatters off of an argon atom positioned at the coordinate beginning, as shown in Fig. \ref{fig:cross-section schematics}. We can define impact parameter, b, as the perpendicular distance to the closest approach if the electron were undeflected. Then the differential size of the cross section is the area element in the plane of the impact parameter
+\beqn
+d \sigma = b \, db \, d\phi
+\label{sigma area}
+\eeqn
+After the collision, the electron will scatter at an angle $\theta$. The differential angular range of the scattered electron is the solid angle element
+\beqn
+d \Omega = sin \theta \, d\theta \, d\phi
+\label{solid angle}
+\eeqn
+The ratio of $d \sigma$ by $d \Omega$ is called a differential cross-section. The differential cross-section determines the area within which electron's path would need to pass in order for it to scatter into a range of angles $d\theta$.
+\begin{figure}
+	\centering
+	\includegraphics[width = 65 mm]{"cross-section".png}
+	\caption{Cross Section schematics}
+	\label{fig:cross-section schematics}
+\end{figure}
+We can calculate the integrated (total) cross-section by integrating differential cross-section over all possible angles (Reference:  M. A. Liebermann and A. J. Lichtenberg, Principles of Plasma Discharges and Marterials Processing (Academic Press, New York, 1994).):
+\beqn
+\sigma (\varepsilon) = \int{ \dfrac{d \sigma}{d\Omega} d\Omega} = \int{ \dfrac{d \sigma}{d\Omega} sin \theta \, d\theta \, d\phi} =  2\pi \int_0^{\pi}{ \dfrac{d \sigma}{d\Omega} sin \theta \, d\theta }
+\label{sigma area}
+\eeqn
+
+Depending on the type of the collision, we distinguish between cross-sections for elastic and inelastic collisions. In this study, we considered cross-sections for elastic scattering of an electron off of a neutral argon atom, cross-sections for electron impact inelastic collisions in which argon atom was singly ionized, and electron impact excitation cross-sections from ground and first excited argon energy levels (4s states) to second excited energy levels (4p states).
+
+Available experimental and theoretical cross-sections from the argon metastable (4s) levels are very sparse. Further more, even among available cross-sections there is a disagreement by a factor 2-4 between the results. In this study we used experimental cross-sections from Ref(A. Chutijan and D. C. Cartwright, Phys. Rev. A 23, 2178 (1981).
+D. M. Filipovic, B. P. Marinkovic, V. Pejcev, and L. Vuskovic, J. Phys. B: At. Mol. Opt. Phys. 33, 677 (2000).) and calculated cross-sections from Ref. ( D. H. Madison, C. M. Maloney, and J. B. Wang, J. Phys. B: At. Mol. Opt. Phys. 31, 4833 (1998). A. Dasgupta, M. Blaha, and J. L. Guiliani, Phys. Rev. A 61, 012703 (1999).)
+{\color{red}{Here you will explain what is in the figure \ref{fig:right}. Something like: Figure \ref{fig:right} shows an example of which cross-sections. State that excitation cross-section has the highest value (highest probability for collision at energy equal to excitation energy while ionization cross-section has pretty much constant value once we were above the threshold for ionization.}}
+\begin{figure}
+	\centering
+	\includegraphics[scale = 0.75]{"Cross Section vs Energy".png}
+	\caption{Cross Section as a function of electron energy for various collisions\\
+	-Dotted orange line: sum of all cross sections for inelastic excitation collisions\\
+	-Solid blue line: cross sections for elastic scattering off Ar Atom (Need Reference) \\
+	-Dash-dot green line: cross section for ionization inelastic excitation collisions
+	}
+	\label{Cross Sections as a Function of Energy}
+	\end{figure}
+
+
+\subsection{Collision Frequencies}
+Once we know the probabilities for the collisions, we need to find how often collisions happen. The number of collisions the electron undergoes in 1 s is proportional to the number of Ar atoms (more atoms means more collisions), cross – sections (higher probability for collision means more collisions), and the speed or energy of the electron (more energy means more collisions).
+For that purpose, we defined a collision frequency:
+\beqn
+f(\varepsilon) = N_{A} \sigma (\varepsilon) v = N_{A} \sigma (\varepsilon)  \sqrt{\dfrac{2\varepsilon}{m_e}}
+\label{collision_frequency}
+\eeqn
+
+where $N_A$ is the number of argon atoms per unit volume, $\sigma (\varepsilon)$ is the cross – section, and $v$ is the electron's speed. The speed of the electron can be found from electron's kinetic energy, $\varepsilon = \dfrac{1}{2} m v^2$. The units of the collision frequency are Hz (s$^{-1}$). \vspace*{1ex}
+
+We can also find the total (cumulative) collision frequency as a sum of all collision frequencies:
+\beqn
+f_{total} = \sum_{j=1}^{n}{f_j}
+\label{cumulative collision_frequency}
+\eeqn
+where $n$ is the number of collision possibilities included in the model (i.e. $f_1$ – elastic scattering, $f_2$ – ionization, $f_3$ – excitation from level 1 to 2, and so forth).
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\includegraphics[width = \textwidth]{"CFvEnergy".png}
+		\caption{Collision Frequency vs Energy}
+		\label{fig:left}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+	\centering
+	\includegraphics[width = \textwidth]{"CFvEnergy with Null".png}
+	\caption{Collision Frequency vs Energy with Null Collision}
+	\label{fig:left}
+\end{subfigure}
+	\label{CFs}
+	\caption{Collision Frequency as a function of electron energy for various collisions\\
+	-Solid Purple: Total Collision Frequency\\
+	-Dashed Blue: Elastic Collision Frequency\\
+	-Dash-dot orange line: Ionization Collision Frequency \\
+	-Solid green line: Total Collision Frequency for all Excitation Collisions\\
+	-Solid black line: Null Collision Frequency\\
+	-Solid red line: Null Collision Frequency + Total Collision Frequency
+	}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|l|l|l|l|l|l|l|}
+		\hline
+		Energy (eV) & elastic & sumExcite & ionization & total & null & tot+null \\ \hline
+		& ($\times10^8 s^{-1}$) & ($\times10^8 s^{-1}$) & ($\times10^8 s^{-1}$) & ($\times10^8 s^{-1}$) & ($\times10^8 s^{-1}$) & ($\times10^8 s^{-1}$) \\ \hline
+		0 & 0 & 0 & 0 & 0 & 3.18 & 3.18 \\ \hline
+		5 & 0.896 & 0.001 & 0 & 0.897 & 2.284 & 3.18 \\ \hline
+		10 & 2.815 & 0.002 & 0 & 2.817 & 0.363 & 3.18 \\ \hline
+		14 & 3.171 & 0.01 & 0 & \cellcolor{yellow!25}3.18 & 0 & 3.18 \\ \hline
+		15 & 3.149 & 0.019 & 0.002 & 3.171 & 0.009 & 3.18 \\ \hline
+		20 & 2.585 & 0.099 & 0.167 & 2.85 & 0.33 & 3.18 \\ \hline
+		25 & 2.068 & 0.145 & 0.383 & 2.596 & 0.584 & 3.18 \\ \hline
+	\end{tabular}
+\end{table}
+
+
+\subsection{Cumulative Probabilities}
+We'll have to come back to this
+
+\section{Code}
+\subsection{Code Structure}
+As can be seen in Figure \ref{Code Structure} script was split into two main processes: running the simulation and plotting subsequent 
+results. The former requires many more 
+requisites: in order to create, propagate, and collide the electron, we first need to determine which collision the electron will experience 
+any at all. Probablities for each collision type will depend on the electrons energy just before impact. Our simulation is accurate up to 
+two decimal points for electron energy in units of electron volts. Unfortuantely we run into an obstacle since the cross sections 
+provided are given in multiples of two. By running a quick script to linearly interpolate these cross sections given in the DAT files we 
+overcome this obstacle. Plotting the results is a bit more straightforward. Specific python libraries allow us to quickly create a 
+scatterplot for Energy Distribution as well as the locations of the collisions exprienced. One could even sacrifice computational runtime 
+and plot the path experienced by every single electron.
+
+\begin{figure}[h]
+	\centering
+ 	\includegraphics[width = 12.5cm]{"Code Structure".pdf}
+	\caption{Code Structure}
+	\label{Code Structure}
+\end{figure}
+
+
+\subsection{Calculating Time of Flight}
+Given the plasma's particle density and the electrons energy, it's time of flight (TOF) can be calculated. Here we define our TOF to be the time interval between collisions. We calculate our TOF as $\Delta t$ in equations \ref{E > 0.01} -  
+\ref{E <= 0.01} as a function of Total Collision Frequency (TCF) and $r$, a randomly generated float between 0 and 1. Unfortunately we 
+run into an issue at first propagation. Becuse initial  energy is set at 0 eV, $TCF = 0$. This is corrected by applying a condition such that 
+if the electron has less than 0.01eV, it’s $\Delta t$ will be exactly 100 nanoseconds. 
+
+
+
+\beqn
+E > 0.01eV: dt = \frac{-\log(1-r)}{TCF}
+\label{E > 0.01}
+\eeqn
+\vspace{-0.8 cm}
+\beqn
+E <= 0.01eV: dt = 10^{-7} s
+\label{E <= 0.01}
+\eeqn
+
+
+
+
+
+
+
+\section{Results}
+
+\begin{itemize}
+	\item Simulated experiment
+	\item 2d Ar Plasma
+	\item atom density
+	\item we included all the excitation collisions from
+		\item  ground - 24 excel
+		\item 1st excited 
+\end{itemize}
+
+
+
+
+We start off by generating some intial conditions.
+First electron is created its initial position, velocity, and acceleration are set to zero. For simplicity, we round
+electron mass and charge down to their first decimal: $m_{e} = 9.1\cdot10^{-31} kg$, $q_{e} = 
+1.6\cdot10^{-19} C$. We assume that number of 
+argon atoms per unit area is $N = 10^{21} m^2$. 
+
+
+
+
+\subsection{Interpolating Cross Sections}
+After interpolating all given cross sections and plugging them into eq. \ref{Collision 
+	Frequency} we find that $TCF_{Max}  =  5,553.813\cdot10^6$ at 19.44 eV. At this exact 
+energy, we make it so that the electron has to collide, or in other words at this energy 
+$f_{null} = 0 $ Hz. As displayed in the table below, we see that null frequency quickly starts to increase the within just a few electron volts of the our peak. 
+\beqn
+f = N_{A}\sigma(\epsilon) \sqrt{\frac{2\epsilon}{m_{e}}} 
+\label{Collision Frequency}
+\eeqn
+
+
+
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width = \textwidth]{"MonteCarloProbVis2".pdf}
+	\caption{Probabilities for an electron with 25 eV.}
+	\label{Weighted Probability}
+\end{figure}
+
+
+
+{\fontfamily{cmtt}\selectfont def collision\_frequency(energy\_eV, process\_cross\_section\_dictionary):\\
+	\hspace*{3ex}if isnan(energy\_eV) or energy\_eV > 99.99:\\
+	\hspace*{6ex}energy\_eV = 99.99\\
+	\hspace*{3ex}cf = (2*energy\_eV*eV\_J/me)**0.5\\
+	\hspace*{3ex}cf = cf*process\_cross\_section\_dictionary[iround(ener\_eV)]\\
+	\hspace*{3ex}cf = cf *argon\_volume\_density\\
+	\hspace*{3ex}return cf\\
+}
+
+
+
+{\fontfamily{cmtt}\selectfont def total\_CF(energy, dictionary\_of\_cs\_dictionaries):\\
+	\hspace*{2ex}sum = 0\\
+	\hspace*{2ex}for processD in dictionary\_of\_cs\_dictionaries:\\
+	\hspace*{4ex}sum += collision\_frequency(energy, dictionary\_of\_cs\_dictionaries[processD)\\
+	\hspace*{2ex}return sum\\
+	\\}
+Note: The function "isnan()" is used frequently to filter out values that are neither intergers nor floats; this function returns a boolean depending on whether or not "energy\_eV" is a real comprehendable value. At times
+calculations in Python can become so large or small that a value is no longer considered an interger nor a float so "NaN" values are built-in into Python to prevent system overwhelming.
+("NaN being short for "Not a Number").\\
+
+
+
+%How to temporarily use different font below
+%This is typeset in default font.  {\fontfamily{cmtt}\selectfont This is typeset in tgpagella.}  And default font again.\\
+
+After moving the electron in this time according to the equations of motion, you should calculate the new position (x and y) and the new velocity $v$. We calculate the magnitude of the velocity as
+$v = \sqrt{v_x ^2 + v_y ^2}$. Since the only force acting upon the electron is the Coulomb force F = qE, all the work done by this force will be converted into electron’s kinetic energy and is calculated 
+using the standard $E = \frac{1}{2}m_e v^2$. where v is the magnitude of the electron’s velocity. Up until the first collision the electron will only have a $v_x$ component. To determine if the electron collided 
+or not, first we determine its Maximum Total collision frequency and make the assumption that at that energy, the electron has to collide whether it be elastically or inelastic. For every other energy, there 
+will be a null collision frequency (NCF) greater than zero. 
+
+\subsection{Electron Energy Distribution Function}
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\includegraphics[width = \textwidth]{"NumElectronsvsEnergy,25elec,Ex=10".pdf}
+		\label{EEDF 25 Electrons Field Magnitude 10}
+		\caption{25 Electrons, 50 Motions Each, $E_{x} = -10$}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\includegraphics[width = \textwidth]{"NumElectronsvsEnergy,25elec,Ex=50".pdf}
+		\label{EEDF 25 Electrons Field Magnitude 10}
+		\caption{25 Electrons, 50 Motions Each, $E_{x} = -50$}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\includegraphics[width = \textwidth]{"NumElectronsvsEnergy,250elec,Ex=10".pdf}
+		\label{EEDF 25 Electrons Field Magnitude 10}
+		\caption{250 Electrons, 50 Motions Each, $E_{x} = -10$}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\includegraphics[width = \textwidth]{"NumElectronsvsEnergy,250elec,Ex=50".pdf}
+		\label{EEDF 25 Electrons Field Magnitude 10}
+		\caption{250 Electrons, 50 Motions Each, $E_{x} = -50$}
+	\end{subfigure}
+	\label{EEDFs}
+	\caption{Electron Energy Distrubtion Functions of a Variety of Conditions}
+\end{figure}
+
+
+\end{document}

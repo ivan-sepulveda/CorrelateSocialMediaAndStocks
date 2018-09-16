@@ -72,9 +72,11 @@ class InstagramScraper:
         else:
             count = 1
             for node in metrics:
+                print(count)
                 node = node.get('node')
                 temp_dict = dict()
                 if node and isinstance(node, dict):
+                    print(node)
                     results_a.append(node)
                     # print("\n{0}________________________________".format(count))
                     like_count = node["edge_liked_by"]['count']
@@ -97,5 +99,3 @@ class InstagramScraper:
 k = InstagramScraper()
 results___ = k.profile_page_recent_posts('https://www.instagram.com/nike/?hl=en')
 # pprint(results)
-# for key in results[0]:
-#     print(key)
