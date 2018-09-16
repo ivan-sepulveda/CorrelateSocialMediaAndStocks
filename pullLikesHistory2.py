@@ -2,20 +2,26 @@ from instagram_scraper import app
 import os
 import json
 
-def go_time():
-    json_file = "a"
-    return json_file
-scrp_accnt = "nike"
-login_u = "appleseedjohn506"
-login_p = "e3e-y5V-HSt-RN9"
-mx_ = "3"
-os.system("instagram-scraper {0} -u {1} -p {2} -m {3} -t none --media-metadata".format(scrp_accnt,login_u,login_p, mx_))
+
+# scrp_accnt = "nike"
+# login_u = "appleseedjohn506"
+# login_p = "e3e-y5V-HSt-RN9"
+# mx_ = "3"
+# os.system("instagram-scraper {0} -u {1} -p {2} -m {3} -t none --media-metadata".format(scrp_accnt,login_u,login_p, mx_))
 # Now we are going to try and obtain the json file
 
 os.chdir(os.getcwd()+"/"+scrp_accnt)
 input_file = open(scrp_accnt+'.json', 'r')
 json_decode = json.load(input_file)
 os.chdir(home_directory)
+
+
+def returnJsonFile(retailerIG):
+    os.chdir(os.getcwd() + "/" + scrp_accnt)
+    input_file = open(scrp_accnt + '.json', 'r')
+    json_decode = json.load(input_file)
+    os.chdir(home_directory)
+
 
 def go_time2():
     home_directory = os.getcwd()
@@ -31,14 +37,3 @@ def go_time2():
     # metrics = json_decode['entry_data']['ProfilePage'][0]['graphql']['user']
     os.chdir(home_directory)
     return json_decode
-
-
-
-
-
-
-
-# def main(scrape="nike", userlogin="appleseedjohn506", passs="e3e-y5V-HSt-RN9", max_="3", mediaTypes="none"):
-# """instagram-scraper mtnemm -u appleseedjohn506 -p e3e-y5V-HSt-RN9 -m 3"""
-print("done")
-# app.main()

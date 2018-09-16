@@ -8,15 +8,30 @@ import pandas as pd
 import calendar
 from collections import OrderedDict, defaultdict
 
-ts = timeseries.TimeSeries(key='HQXQHIFN548EZELL', output_format='pandas')
+"""
+@:param stock_price
+alpha_vantage gives us a variety of options for obtaining the stock price of an index for a given day. They must be
+entered as follows. 
+ 
+Stock Opening Price: stock_price =  "1. open"
+Stock Daily High: stock_price =  "2. high"
+Stock Daily Low: stock_price =  "3. low"
+Stock Closing Price: stock_price =  "4. close"
 
-# data, meta_data = ts.get_intraday(symbol='NKE',interval='1min', outputsize='full')
-data, meta_data = ts.get_daily(symbol='NKE')
-# print(data)
-edited_data = pd.DataFrame(data)
-stock_close = edited_data["4. close"]
-# print(type(edited_data["1. open"]))
-stock_close_ordered_dict = stock_close.to_dict(OrderedDict)
+@:param volume
+If you would instead like to pull the volume of that retailers stocks traded that day you can either enter into params
+stock_price =  "5. volume", or set volume=True.
+"""
+def pullStockPriceHistoryData(alphaVantageKey, nasdaqIndex, stock_price="4. close", volume=False):
+    ts = timeseries.TimeSeries(key=alphaVantageKey, output_format='pandas')
+    # data, meta_data = ts.get_intraday(symbol='NKE',interval='1min', outputsize='full')
+    data, meta_data = ts.get_daily(symbol=nasdaqIndex)
+    # print(data)
+    edited_data = pd.DataFrame(data)
+    stock_close = edited_data[stock_price]
+    # print(type(edited_data["1. open"]))
+    stock_close_ordered_dict = stock_close.to_dict(OrderedDict)
+    return stock_close_ordered_dict
 
 def convert_str_to_date(strr):
     year = strr[:4]
