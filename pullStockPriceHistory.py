@@ -45,20 +45,5 @@ def convert_str_to_date(strr):
     # converting back to simple date
     item3 = item3.date()
     return item3
-    # stock_close_ordered_dict_b[item3] =
-    # print(key, stock_close_ordered_dict[key])
-    # print(key," - " ,item3)
-    # stock_close_ordered_dict_b[item3] = stock_close_ordered_dict[key]
 
-
-
-# print(stock_close.to_dict(OrderedDict))
-
-# print(edited_data['2018-09-11'].values.tolist())
- # = pd.Data['2018-09-11'].values.tolist()
-
-# data['4. close'].plot()
-# plt.title('Intraday Times Series for the NKE stock (1 min)')
-# plt.xlabel(date.today())
-# plt.show()
 
