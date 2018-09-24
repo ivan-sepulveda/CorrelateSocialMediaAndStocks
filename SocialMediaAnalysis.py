@@ -1,13 +1,13 @@
 from statistics import mean
-# from pullLikesHistory import InstagramScraper
 import dateutil.parser
-# from pullLikesHistory2 import go_time2
 from datetime import datetime
 from pullSocialMediaPresence import returnDecodedJson
+import pullUserVolumeStats as uvs
+from initialConditions import *
 
 
 
-def filteredDecodedJson(retailerIg_):
+def filteredDecodedJson(retailerIg_, keepDateAsUnix = False):
     decodedJson = returnDecodedJson(retailerIg_)
     filtered = dict()
     for node_ in decodedJson:
@@ -16,7 +16,12 @@ def filteredDecodedJson(retailerIg_):
             filtered[unixTimestamp] = dict()
             filtered[unixTimestamp]["comment_volume"] = node_["edge_media_to_comment"]["count"]
             filtered[unixTimestamp]["like_volume"] = node_["edge_media_preview_like"]["count"]
-            filtered[unixTimestamp]["date_string"] = datetime.utcfromtimestamp(unixTimestamp).strftime('%Y-%m-%d')
+            if keepDateAsUnix:
+                filtered[unixTimestamp]["date_string"] = unixTimestamp
+                pass
+            else:
+                filtered[unixTimestamp]["date_string"] = datetime.utcfromtimestamp(unixTimestamp).strftime('%Y-%m-%d')
+
     return filtered
 
 
@@ -47,118 +52,65 @@ def addAveragesToMetrics(regularMetrics, filteredJson):
         listCommentChangePercentages.append(100*(filteredJson[post]["comment_volume"] - avg_comments)/avg_comments)
     updatedMetrics["likes_percent_changes"]= listLikeChangePercentages
     updatedMetrics["comments_percent_changes"]= listCommentChangePercentages
+    updatedMetrics["timestamps"]= regularMetrics["timestamps"]
+
     return updatedMetrics
 
 
 
-    # for node in decodedJson:
-    #     print(node)
-    #     print(type(node))
-    #     if len(node) > 0:
-    #         unixTimestamp = node["taken_at_timestamp"]
-    #         listOfTimeStamps.append(datetime.utcfromtimestamp(unixTimestamp).strftime('%Y-%m-%d'))
-    #         listOfComments.append(node["edge_media_to_comment"]["count"])
-    #         listOfLikes.append(node["edge_media_preview_like"]["count"])
-    #         print(node)
-    #         for key in node:
-    #             print(key)
-    #
-    # print(listOfLikes)
-    # print(listOfComments)
-    # print(listOfTimeStamps)
-    #
-    # avg_likes = mean(listOfLikes)
-    # avg_comments = mean(listOfComments)
-    # print("avg_likes", avg_likes)
-    # print("avg_comments", avg_comments)
-    #
-    # for post in decodedJson:
-    #     post["comparison_to_avg_likes"] = (avg_likes - post["edge_media_preview_like"]["count"]) / avg_likes * 100
-    #     post["comparison_to_avg_comments"] = (avg_comments - post["edge_media_to_comment"][
-    #         "count"]) / avg_comments * 100
-    #
-    # print("first post at: ", listOfTimeStamps[0])
-    # print("last post at:", listOfTimeStamps[-1])
-    #
-    # for node in decodedJson:
-    #     all_like_comps.append(node["comparison_to_avg_likes"])
-    #     all_comment_comps.append(node["comparison_to_avg_comments"])
-    # return
+def userScaledMetrics(lksPrcntChngs, dateTimeStampsIG, dateTimesFromUserDict):
+    userScaledMetricsDct = dict()
+    userScaledMetricsDct["scaledLikesPercentChanges"] = list()
+    userScaledMetricsDct["scaledCommentsPercentChanges"] = list()
+    userScaledMetricsDct["timestamps"] = dateTimeStampsIG[:]
+    count = 0
+    # print(len(lksPrcntChngs), len(dateTimeStampsIG))
+    today = datetime.now()
+    for i in range(len(dateTimeStampsIG)):
+        count += 1
+        usersAfterJune18 = 1000000000
+        percentChangeForPost = lksPrcntChngs[i]
+        postDate = dateTimeStampsIG[i]
+        postDay = postDate.day
+        postMonth = postDate.month
+        postYear = postDate.year
+        if datetime(postYear, postMonth, postDay) < today:
+            # assuming 1 billion users
+            scaleFactor = 1/(usersAfterJune18/10000000)
+            scaledPercentChange = percentChangeForPost*scaleFactor
+        else:
+            usersOnThisDate = dateTimesFromUserDict[postDate]
+            scaleFactor = 1/(usersOnThisDate/10000000)
+
+            scaledPercentChange = percentChangeForPost*scaleFactor
+        userScaledMetricsDct["scaledLikesPercentChanges"].append(scaledPercentChange)
+        # print(i, "postdate", dateTimeStampsIG[i], scaledPercentChange)
+
+    # print(userScaledMetricsDct["scaledLikesPercentChanges"])
+    return userScaledMetricsDct
 
 
 
+filteredJson1 = filteredDecodedJson(retailerIg, keepDateAsUnix=True)
+baseMetrics = returnMetricsListsDict(filteredJson1)
+comparisonMetrics = addAveragesToMetrics(baseMetrics, filteredJson1)
+# print("comparisonMetrics[timestamps])")
 
+def stringDatesToDatetimeDates(retailerComparisonMetrics):
 
+    return [uvs.convert_str_to_date_notime(uvs.timestampToStr(e)) for e in retailerComparisonMetrics["timestamps"]]
 
+IG_TS_as_DT = [uvs.convert_str_to_date_notime(uvs.timestampToStr(e)) for e in comparisonMetrics["timestamps"]]
+# print(IG_TS_as_DT)
+# keyVariable = comparisonMetrics["timestamps"][0]
+# keyAsString = uvs.timestampToStr(keyVariable)
 
+# userScaledMetrics(comparisonMetrics["likes_percent_changes"], IG_TS_as_DT, uvs.dateValueDict)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-# def returnMetricsListsDict(cleanedUpJson):
-#     decodedJson = returnDecodedJson(retailerIg_)
-#     listOfLikes = list()
-#     listOfComments = list()
-#     listOfTimeStamps = list()
-#     all_like_comps = list()
-#     all_comment_comps = list()
-#     return e
-
-
-
-# metrics = go_time2()
+# a = datetime.date(2018, 9, 15, 0 , 0, 0)
+# for t in uvs.dateValueDict:
+#     print(type(t))
+#     break
 #
-# listOfLikes = list()
-# listOfComments = list()
-# listOfTimeStamps = list()
-# all_like_comps = list()
-# all_comment_comps = list()
-
-
-# for node in metrics:
-#     print(type(node))
-#     if len(node) > 0:
-#         unixTimestamp = node["taken_at_timestamp"]
-#         listOfTimeStamps.append(datetime.utcfromtimestamp(unixTimestamp).strftime('%Y-%m-%d'))
-#         listOfComments.append(node["edge_media_to_comment"]["count"])
-#         listOfLikes.append(node["edge_media_preview_like"]["count"])
-#         print(node)
-#         for key in node:
-#             print(key)
-#
-#
-# print(listOfLikes)
-# print(listOfComments)
-# print(listOfTimeStamps)
-#
-# avg_likes = mean(listOfLikes)
-# avg_comments = mean(listOfComments)
-# print("avg_likes", avg_likes)
-# print("avg_comments", avg_comments)
-#
-#
-# for post in metrics:
-#     post["comparison_to_avg_likes"] = (avg_likes - post["edge_media_preview_like"]["count"])/avg_likes * 100
-#     post["comparison_to_avg_comments"] = (avg_comments - post["edge_media_to_comment"]["count"])/avg_comments * 100
-#
-#
-# print("first post at: ", listOfTimeStamps[0])
-# print("last post at:", listOfTimeStamps[-1])
-#
-# for node in metrics:
-#     all_like_comps.append(node["comparison_to_avg_likes"])
-#     all_comment_comps.append(node["comparison_to_avg_comments"])
-#
-# start = datetime.strptime(listOfTimeStamps[0], '%Y-%m-%d')
-# print(start)
-# print(type(start))
+# t = datetime.date(datetime(2012, 9, 15))
+# print(uvs.dateValueDict[t])

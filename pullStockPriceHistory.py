@@ -22,16 +22,22 @@ Stock Closing Price: stock_price =  "4. close"
 If you would instead like to pull the volume of that retailers stocks traded that day you can either enter into params
 stock_price =  "5. volume", or set volume=True.
 """
-def pullStockPriceHistoryData(alphaVantageKey, nasdaqIndex, stock_price="4. close", volume=False):
+def pullStockPriceHistoryData(alphaVantageKey, nasdaqIndex, stock_price="4. close", series = "daily"):
     ts = timeseries.TimeSeries(key=alphaVantageKey, output_format='pandas')
-    # data, meta_data = ts.get_intraday(symbol='NKE',interval='1min', outputsize='full')
-    data, meta_data = ts.get_daily(symbol=nasdaqIndex)
+    if series == "daily":
+        # data, meta_data = ts.get_daily(symbol=nasdaqIndex, outputsize="full")
+        data, meta_data = ts.get_daily(symbol=nasdaqIndex, outputsize="compact")
+    if series == "weekly":
+        data, meta_data = ts.get_weekly(symbol=nasdaqIndex)
+    if series == "monthly":
+        data, meta_data = ts.get_monthly(symbol=nasdaqIndex)
     # print(data)
     edited_data = pd.DataFrame(data)
     stock_close = edited_data[stock_price]
     # print(type(edited_data["1. open"]))
     stock_close_ordered_dict = stock_close.to_dict(OrderedDict)
     return stock_close_ordered_dict
+
 
 def convert_str_to_date(strr):
     year = strr[:4]

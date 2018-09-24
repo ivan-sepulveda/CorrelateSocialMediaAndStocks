@@ -1,5 +1,6 @@
 from pullStockPriceHistory import *
 from statistics import mean
+import alpha_vantage
 
 
 

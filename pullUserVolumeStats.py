@@ -25,8 +25,8 @@ def convert_str_to_date_notime(datetimeInStringFormat):
 
 def customConvertStringToDate(monthStrAbbrv, yearStr, dayStr=False):
     if not dayStr:
-        day = "01"
-    strAsDatetime = datetime.datetime.strptime('{0} {1} {2}'.format(monthStrAbbrv, day, yearStr), '%b %d %Y')
+        dayStr = "01"
+    strAsDatetime = datetime.datetime.strptime('{0} {1} {2}'.format(monthStrAbbrv, dayStr, yearStr), '%b %d %Y')
     date = strAsDatetime.date()
     return date
 
@@ -38,6 +38,19 @@ def toTimestamp(d):
     return calendar.timegm(date_.timetuple())
 
 def timestampToStr(timestampInt):
+    if type(timestampInt) == type(str("string")):
+        try:
+            timestampInt = int(timestampInt)
+        except ValueError:
+            pass
+    if type(timestampInt) == type(str("string")):
+        try:
+            timestampInt = convert_str_to_date_notime(timestampInt)
+            timestampInt = toTimestamp(timestampInt)
+        except TypeError:
+            pass
+
+
     return datetime.datetime.utcfromtimestamp(timestampInt).strftime('%Y-%m-%d %H:%M:%S')
 
 def checkIfModifiedSheetExists():
@@ -49,8 +62,7 @@ def checkForUnmotifiedSheet():
 def createModifiedUserVolumeSpreadsheet(fullDatesArray, fullValuesArray):
     # First we'll create the spreadsheet if it does not already exist.
     if not checkIfModifiedSheetExists():
-        workbook = xlsxwriter.Workbook('ModifiedUserVolume.xlsx', {'default_date_format':
-                                                  'dd/mm/yy'})
+        workbook = xlsxwriter.Workbook('ModifiedUserVolume.xlsx', {'default_date_format':'dd/mm/yy'})
         worksheet = workbook.add_worksheet("ModifiedData")
     # If it does exist, we'll delete it and crate a new blank one.
     else:
@@ -66,10 +78,7 @@ def createModifiedUserVolumeSpreadsheet(fullDatesArray, fullValuesArray):
         # Now it's just write away. Dates (as unix) first
         worksheet.write('A'+currentRowString, unixTimestamp)
         # Now or the IG user volume, converted from millions to plain numbers
-
         worksheet.write('B'+currentRowString, round(fullValuesArray[i]*1000000), 0)
-
-
     workbook.close()
     return
 
@@ -98,6 +107,8 @@ def interpBetweenFirstLastDays(firstDateCell, lastDateCell):
     return allDates
 
 
+
+
 def returnInterpolatedValuesByDayArray(startVal, endVal, startdateCell, enddateCell):
     separatedDailyDates = returnDailyInterpolatedArray(startdateCell, enddateCell)
     return np.arange(startVal, endVal, (endVal-startVal) / len(separatedDailyDates))
@@ -114,6 +125,7 @@ def createFullValuesArray(statistaExcelFileName, statistaExcelSheetName):
     sheet = workbook[statistaExcelSheetName]
     allVals = list()
     allDates = list()
+    # First we interpolate all the data provided by Statista
     for i in range(6, 17):
         startDateCellStr = "B" + str(i)
         strt = sheet[startDateCellStr].value
@@ -132,34 +144,33 @@ def createFullValuesArray(statistaExcelFileName, statistaExcelSheetName):
             allDates += daysArry
             allValsThisIter = returnInterpolatedValuesByDayArray(startVal1, endVal1, strt, end)
             allVals += allValsThisIter.tolist()
-    # print(len(allVals))
-    # print(len(allDates))
-    return allDates, allVals
-
-
-# fullDates = createFullDatesArray(userVolumeStatsFileName, userVolumeStatsRelevantSheet)
-# print((type(fullDates[0])))
-# createModifiedUserVolumeSpreadsheet(fullDates)
+    # After an error I realized that I was trying to scale posts before the inital Statista given date of 1/1/13
+    # There were definitely users before that since Instagram launched October 6, 2010.
+    # So I'm just going to interpolate linearly from launch date to January 1st, 2013. Let's create it
+    launchDate_DT = customConvertStringToDate("Oct", "2010", "6")
+    initialStatista_DT = customConvertStringToDate("Jan", "2013", "1")
+    launchVals = 0
+    statistaValsInMil = 90
+    beforeStatistaDates = returnDailyInterpolatedArray(launchDate_DT, initialStatista_DT)
+    beforeStatistaUsers = returnInterpolatedValuesByDayArray(launchVals, statistaValsInMil, launchDate_DT, initialStatista_DT)
+    # So Second, let's add all that data from Oct 6, 2010 to Jan 1, 13.
+    finalAllDate = beforeStatistaDates[:] + allDates[:]
+    finalAllVals_inMil = beforeStatistaUsers[:].tolist() + allVals[:]
+    # I also need to set all the values up to today...
+    return finalAllDate, finalAllVals_inMil
 
 dts, _vals = createFullValuesArray(userVolumeStatsFileName, userVolumeStatsRelevantSheet)
 createModifiedUserVolumeSpreadsheet(dts, _vals)
-print(type(_vals[0]))
+dtsNP = [int(time.mktime(elem.timetuple())) for elem in dts]
 
-# returnInterpolatedValuesByDayArray()
+timeStampValueDict = dict(zip(dtsNP, _vals))
+dateValueDict = dict(zip(dts, _vals))
 
-
-# wb = load_workbook(filename=userVolumeStatsFileName, data_only=True)
-# sheet_overview = wb['Data']
+# count = 0
 #
-# a = sheet_overview['B' + str(10)].value
-# a1 = sheet_overview['C' + str(10)].value
-# b = sheet_overview['B' + str(11)].value
-# b1 = sheet_overview['C' + str(11)].value
-# y1 = sheet_overview['z' + str(11)].value
-
-
-
-#
-# sepDays = returnDailyInterpolatedArray(a, b)
-# sepValues = returnInterpolatedValuesByDayArray(a1, b1, sepDays)
+# for k in timeStampValueDict:
+#     count += 1
+#     print(k, timeStampValueDict[k])
+#     if count > 100:
+#         break
 

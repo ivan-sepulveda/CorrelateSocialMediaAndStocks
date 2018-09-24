@@ -1,0 +1,1 @@
+2018-09-20 00:04:26,481 - instagram_scraper.app - WARNING - Retry after exception ReadTimeout(ReadTimeoutError("HTTPSConnectionPool(host='www.instagram.com', port=443): Read timed out. (read timeout=90)",),) on https://www.instagram.com/p/BUIeLGshLpi/?__a=1
