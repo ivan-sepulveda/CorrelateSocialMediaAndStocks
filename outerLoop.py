@@ -24,27 +24,24 @@ scaledMetrics = userScaledMetrics(socialMediaMetrics["likes_percent_changes"], i
 # Step 3: Lets pull our NASDAQ data
 nasdaqDataDaily = pullStockPriceHistoryData(av_key, retailerNasdaq)
 # nasdaqDataWeekly = pullStockPriceHistoryData(av_key, retailerNasdaq, series="weekly")
-# print(nasdaqDataWeekly)
-
-
 # Step 4: Parse through data and run analytics
 stockPriceMetrics = returnPercentChangesByDate(nasdaqDataDaily)
-# Step 5: Plot both metrics against each other
-stockSeries = convertToPandaSeries(stockPriceMetrics["price_percent_changes"], stockPriceMetrics["date_strings"])
-mediaSeries = convertToPandaSeries(socialMediaMetrics["likes_percent_changes"], socialMediaMetrics["timestamps"])
-# Step 5.5: Overlap dates
-relevantNasdaqSeries = overlapSeriesDates(mediaSeries, stockSeries)
-print("relevant nasdaq")
-print(relevantNasdaqSeries)
-#
-plotSocialMediaVsStocks(mediaSeries, relevantNasdaqSeries, retailerIg)
+print("Trying to find adjusted stock price metrics")
+weeklyScaledStockMetrics = percentChangesByDayScaled(nasdaqDataDaily, "weekly")
 
-# Step 6: Plot dynamically user scaled version. Using the same stock series
-scaledMediaMetricsSeries = convertToPandaSeries(scaledMetrics["scaledLikesPercentChanges"], socialMediaMetrics["timestamps"])
-scaledMediaSeries = convertToPandaSeries(scaledMediaMetricsSeries, socialMediaMetrics["timestamps"])
-plotUserScaledSocialMediaVsStocks(scaledMediaMetricsSeries, relevantNasdaqSeries, retailerIg)
-# #
-# #
-#
-#
-#
+
+
+
+
+
+# # Step 5: Plot both metrics against each other
+# stockSeries = convertToPandaSeries(stockPriceMetrics["price_percent_changes"], stockPriceMetrics["date_strings"])
+# mediaSeries = convertToPandaSeries(socialMediaMetrics["likes_percent_changes"], socialMediaMetrics["timestamps"])
+# # Step 5.5: Overlap dates
+# relevantNasdaqSeries = overlapSeriesDates(mediaSeries, stockSeries)
+# print(relevantNasdaqSeries)
+# plotSocialMediaVsStocks(mediaSeries, relevantNasdaqSeries, retailerIg)
+# # Step 6: Plot dynamically user scaled version. Using the same stock series
+# scaledMediaMetricsSeries = convertToPandaSeries(scaledMetrics["scaledLikesPercentChanges"], socialMediaMetrics["timestamps"])
+# scaledMediaSeries = convertToPandaSeries(scaledMediaMetricsSeries, socialMediaMetrics["timestamps"])
+# plotUserScaledSocialMediaVsStocks(scaledMediaMetricsSeries, relevantNasdaqSeries, retailerIg)

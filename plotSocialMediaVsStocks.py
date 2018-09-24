@@ -41,7 +41,7 @@ def overlapSeriesDates(socialPandaSeries, stockPandaSeries):
     # print(reducedStockSeries)
     return reducedStockSeries[lastRelevantDateIdex:]
 
-def plotSocialMediaVsStocks(socialPandaSeries, stockPandaSeries, company, formatBy = "M"):
+def plotSocialMediaVsStocks(socialPandaSeries, stockPandaSeries, company, formatBy = "M", interval=1):
     fig, ax = plt.subplots()
     datemin_social = np.datetime64(socialPandaSeries.index[0], formatBy)
     datemax_social = np.datetime64(socialPandaSeries.index[-1], formatBy) + np.timedelta64(1, formatBy)
@@ -71,7 +71,7 @@ def plotSocialMediaVsStocks(socialPandaSeries, stockPandaSeries, company, format
     mondays = WeekdayLocator(MONDAY)
 
     # every month
-    months = MonthLocator(range(1, 13), bymonthday=1, interval=1)
+    months = MonthLocator(range(1, 13), bymonthday=1, interval=interval)
     monthsFmt = DateFormatter("%b '%y")
 
     ax.xaxis.set_major_locator(months)
@@ -87,7 +87,7 @@ def plotSocialMediaVsStocks(socialPandaSeries, stockPandaSeries, company, format
     fig.savefig("Social Media Comparison.png")
     plt.show()
 
-def plotUserScaledSocialMediaVsStocks(socialPandaSeries, stockPandaSeries, company, formatBy = "M"):
+def plotUserScaledSocialMediaVsStocks(socialPandaSeries, stockPandaSeries, company, formatBy = "M", interval=1):
     fig, ax = plt.subplots()
     datemin_social = np.datetime64(socialPandaSeries.index[0], formatBy)
     datemax_social = np.datetime64(socialPandaSeries.index[-1], formatBy) + np.timedelta64(1, formatBy)
@@ -116,7 +116,7 @@ def plotUserScaledSocialMediaVsStocks(socialPandaSeries, stockPandaSeries, compa
     mondays = WeekdayLocator(MONDAY)
 
     # every month
-    months = MonthLocator(range(1, 13), bymonthday=1, interval=1)
+    months = MonthLocator(range(1, 13), bymonthday=1, interval=interval)
     monthsFmt = DateFormatter("%b '%y")
 
     ax.xaxis.set_major_locator(months)
