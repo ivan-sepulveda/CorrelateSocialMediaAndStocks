@@ -3,4 +3,7 @@ retailerIg = "nike"
 # Now let's enter the same retailers NASDAQ index
 retailerNasdaq = "NKE"
 # alpha_vantage key
-av_key = "Your Key"
+av_key = "your-av-key"
+# Instagram login information
+login_u = "your-ig-usernname"
+login_p = "your-ig-password"

@@ -8,11 +8,12 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+You are going to need alpha_vantage
 
+```shell
+pip install alpha_vantage, pandas
 ```
-Give examples
-```
+
 
 ### Installing
 
@@ -23,6 +24,7 @@ Say what the step will be
 ```shell
 pip install alpha_vantage, pandas
 ```
+
 
 And repeat
 
