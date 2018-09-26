@@ -1,5 +1,6 @@
 import os
 import json
+import initialConditions
 # Let's set our home directory we we always know where to revert back to
 
 def doesJsonExist(retailerIg):
@@ -11,8 +12,6 @@ def doesJsonExist(retailerIg):
 
 def webscrapeJson(retailerIg):
     print("Web-scraping @{0}, creating json.file".format(retailerIg))
-    login_u = "appleseedjohn506"
-    login_p = "e3e-y5V-HSt-RN9"
     os.system("instagram-scraper {0} -u {1} -p {2} -t none --media-metadata".format(retailerIg, login_u, login_p))
     print("Web-scraping complete.")
 
