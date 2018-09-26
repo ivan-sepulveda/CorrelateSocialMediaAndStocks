@@ -16,7 +16,7 @@
     <SUITE FILE_PATH="coverage/FashionStockSocialMediaCorrelation$comparison.coverage" NAME="comparison Coverage Results" MODIFIED="1537077986497" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/FashionStockSocialMediaCorrelation$pullUserVolumeStats.coverage" NAME="pullUserVolumeStats Coverage Results" MODIFIED="1537417143224" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/FashionStockSocialMediaCorrelation$pullLikesHistory.coverage" NAME="pullLikesHistory Coverage Results" MODIFIED="1536691721227" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/FashionStockSocialMediaCorrelation$outerLoop.coverage" NAME="outerLoop Coverage Results" MODIFIED="1537773894580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/FashionStockSocialMediaCorrelation$outerLoop.coverage" NAME="outerLoop Coverage Results" MODIFIED="1537844873565" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/FashionStockSocialMediaCorrelation$scratch.coverage" NAME="scratch Coverage Results" MODIFIED="1536472572752" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/FashionStockSocialMediaCorrelation$pullStockPriceHistory.coverage" NAME="pullStockPriceHistory Coverage Results" MODIFIED="1536733749337" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/FashionStockSocialMediaCorrelation$pullLikesHistory2.coverage" NAME="pullLikesHistory2 Coverage Results" MODIFIED="1537062446117" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -38,11 +38,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="stockAnalysis.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="stockAnalysis.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/stockAnalysis.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="129">
-              <caret line="10" column="24" lean-forward="false" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="24" />
+            <state relative-caret-position="15">
+              <caret line="10" column="15" lean-forward="false" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="15" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -53,8 +53,8 @@
       <file leaf-file-name="outerLoop.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/outerLoop.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="121">
-              <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+            <state relative-caret-position="315">
+              <caret line="25" column="31" lean-forward="false" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
               <folding>
                 <element signature="e#27#64#0" expanded="true" />
               </folding>
@@ -62,12 +62,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pullStockPriceHistory.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="pullStockPriceHistory.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pullStockPriceHistory.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="106">
-              <caret line="36" column="16" lean-forward="false" selection-start-line="36" selection-start-column="16" selection-end-line="36" selection-end-column="16" />
-              <folding />
+            <state relative-caret-position="375">
+              <caret line="32" column="52" lean-forward="false" selection-start-line="32" selection-start-column="52" selection-end-line="32" selection-end-column="52" />
+              <folding>
+                <marker date="1537832156000" expanded="true" signature="1012:1089" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -83,36 +85,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>month</find>
-      <find>stockSeries</find>
-      <find>datemin_socia</find>
-      <find>timedelta</find>
-      <find>'D'</find>
-      <find>setMa</find>
-      <find>datemin</find>
-      <find>abc</find>
-      <find>social</find>
-      <find>overlap</find>
-      <find>plotSocial</find>
-      <find>reduce</find>
-      <find>forma</find>
-      <find>ax1</find>
-      <find>fig1</find>
-      <find>Scale</find>
-      <find>returnPer</find>
+      <find>scalebyThis</find>
+      <find>weekly</find>
+      <find>datetime</find>
+      <find>same</find>
+      <find>same week</find>
+      <find>percentComparison</find>
+      <find>scaleByThisSeries</find>
       <find>pullStock</find>
-      <find>full</find>
-      <find>Trying</find>
-      <find>By</find>
+      <find>isocal</find>
+      <find>scaleBy</find>
+      <find>isoca</find>
+      <find>dates</find>
+      <find>roundedToFriday</find>
+      <find>percentChange</find>
+      <find>stock_close</find>
       <find>input</find>
-      <find>date_</find>
-      <find>falls</find>
-      <find>time</find>
-      <find>while</find>
-      <find>count</find>
-      <find>05-07</find>
-      <find>perce</find>
-      <find>percentChanges</find>
+      <find>roundTo</find>
+      <find>round</find>
+      <find>roundToNear</find>
+      <find>2010-12-23</find>
+      <find>2010-</find>
+      <find>.year</find>
+      <find>testing</find>
+      <find>2011-04</find>
+      <find>Here's the list</find>
+      <find>2012</find>
+      <find>25</find>
+      <find>2</find>
+      <find>2011-11</find>
+      <find>2012-04</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -133,8 +135,8 @@
         <option value="$PROJECT_DIR$/SocialMediaAnalysis.py" />
         <option value="$PROJECT_DIR$/initialConditions.py" />
         <option value="$PROJECT_DIR$/plotSocialMediaVsStocks.py" />
-        <option value="$PROJECT_DIR$/outerLoop.py" />
         <option value="$PROJECT_DIR$/pullStockPriceHistory.py" />
+        <option value="$PROJECT_DIR$/outerLoop.py" />
         <option value="$PROJECT_DIR$/stockAnalysis.py" />
       </list>
     </option>
@@ -165,8 +167,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -178,11 +178,14 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -337,9 +340,9 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294964" sideWeight="0.5030211" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294964" sideWeight="0.49697885" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294964" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43165466" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2589928" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294964" sideWeight="0.49697885" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27039275" sideWeight="0.48598132" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28172207" sideWeight="0.48598132" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32930514" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.108006045" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -469,9 +472,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="50" column="16" lean-forward="false" selection-start-line="50" selection-start-column="16" selection-end-line="50" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#34#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -479,7 +479,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="158">
           <caret line="73" column="25" lean-forward="false" selection-start-line="73" selection-start-column="25" selection-end-line="73" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -487,7 +486,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="15" column="61" lean-forward="false" selection-start-line="15" selection-start-column="61" selection-end-line="15" selection-end-column="61" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -495,15 +493,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="21" lean-forward="false" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Scale Social Media Comparison.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Scale Social Media Comparison.png" />
     <entry file="file://$PROJECT_DIR$/Scaled Social Media Comparison.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -518,16 +511,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="683">
           <caret line="134" column="0" lean-forward="false" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#27#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/outerLoop.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        <state relative-caret-position="315">
+          <caret line="25" column="31" lean-forward="false" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
           <folding>
             <element signature="e#27#64#0" expanded="true" />
           </folding>
@@ -536,8 +526,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/stockAnalysis.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="10" column="24" lean-forward="false" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="24" />
+        <state relative-caret-position="15">
+          <caret line="10" column="15" lean-forward="false" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="15" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
@@ -546,9 +536,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pullStockPriceHistory.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="36" column="16" lean-forward="false" selection-start-line="36" selection-start-column="16" selection-end-line="36" selection-end-column="16" />
-          <folding />
+        <state relative-caret-position="375">
+          <caret line="32" column="52" lean-forward="false" selection-start-line="32" selection-start-column="52" selection-end-line="32" selection-end-column="52" />
+          <folding>
+            <marker date="1537832156000" expanded="true" signature="1012:1089" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>

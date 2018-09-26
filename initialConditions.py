@@ -3,4 +3,4 @@ retailerIg = "nike"
 # Now let's enter the same retailers NASDAQ index
 retailerNasdaq = "NKE"
 # alpha_vantage key
-av_key = "HQXQHIFN548EZELL"
+av_key = "Your Key"

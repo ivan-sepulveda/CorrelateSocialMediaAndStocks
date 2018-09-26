@@ -6,14 +6,14 @@ import pullUserVolumeStats as puvs
 from initialConditions import *
 
 
-
+print("Outer loop step 1")
 # Step 1: If we haven't already downloaded our retailers IG-like-history into a directory we'll scrape it now.
 if not doesJsonExist(retailerIg):
     webscrapeJson(retailerIg)
 from SocialMediaAnalysis import *
 from plotSocialMediaVsStocks import *
 
-
+print("Outer loop step 2")
 # Step 2: Now we have to parse this json file and run analytics.
 filteredJson_ = filteredDecodedJson(retailerIg)
 metrics_ = returnMetricsListsDict(filteredJson_)
