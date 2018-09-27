@@ -15,7 +15,7 @@ pip install alpha_vantage, pandas
 ```
 
 To install instagram-scraper:
-```bash
+```shell
 $ pip install instagram-scraper
 ```
 
@@ -78,13 +78,11 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **Ivan Sepulveda** - *Initial work* - [ivan-sepulveda](https://github.com/ivan-sepulveda)
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+No license (yet)
 
 ## Acknowledgments
 
