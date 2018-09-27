@@ -8,6 +8,11 @@ Details underway
 
 ### Prerequisites
 
+You are going to need
+* Python3
+* An Instagram account
+* An Alpha Vantage account.
+
 You are going to need alpha_vantage with pandas support
 
 ```shell
@@ -65,13 +70,13 @@ Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
+* [alpha_vantage](http://www.dropwizard.io/1.0.2/docs/) - Used to pull stock data
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Please email me at iesepulveda@usfca.edu if you would like to collaborate on this project. If you are also an aspiring quant this project could significantly benefit both our skill sets.
 
 ## Versioning
 
@@ -79,7 +84,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Ivan Sepulveda** - *Initial work* - [ivan-sepulveda](https://github.com/ivan-sepulveda)
+* **Ivan Sepulveda** - *All work so far* - [ivan-sepulveda](https://github.com/ivan-sepulveda)
 
 ## License
 
@@ -87,11 +92,7 @@ No license (yet)
 
 ## Acknowledgments
 
-* **Ivan Sepulveda** - *Initial work* - [ivan-sepulveda](https://github.com/ivan-sepulveda)
+* **RomelTorres** - *For making alpha_vantage* - [RomelTorres](https://github.com/RomelTorres/alpha_vantage)
 
 * **Ivan Sepulveda** - *Initial work* - [ivan-sepulveda](https://github.com/ivan-sepulveda)
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
 
