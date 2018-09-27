@@ -25,55 +25,14 @@ You're also going to need install instagram-scraper:
 $ pip install instagram-scraper
 ```
 
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```shell
-python3 install alpha_vantage, pandas
-```
-
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
 
 ## Deployment
 
 No notes yet.
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [alpha_vantage](http://www.dropwizard.io/1.0.2/docs/) - Used to pull stock data
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [alpha_vantage](https://github.com/RomelTorres/alpha_vantage) - Used to pull stock data
 
 ## Contributing
 
@@ -81,7 +40,7 @@ Please email me at iesepulveda@usfca.edu if you would like to collaborate on thi
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+If project does not run correctly, it is not up to date. I'm a full time student and work part time on the side so I occasionaly forget to push updates. Feel free to email me a reminder.
 
 ## Authors
 
@@ -93,7 +52,6 @@ No license (yet)
 
 ## Acknowledgments
 
-* **RomelTorres** - *For making alpha_vantage* - [RomelTorres](https://github.com/RomelTorres/alpha_vantage)
+* **RomelTorres** - *For creating alpha_vantage* - [RomelTorres](https://github.com/RomelTorres/alpha_vantage)
 
-* **Ivan Sepulveda** - *Initial work* - [ivan-sepulveda](https://github.com/ivan-sepulveda)
-
+* **rarcega** - *For creating instagram-scraper* - [rarcega](https://github.com/rarcega)
