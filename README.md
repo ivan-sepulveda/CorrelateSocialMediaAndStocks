@@ -8,12 +8,16 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-You are going to need alpha_vantage
+You are going to need alpha_vantage with pandas support
 
 ```shell
 pip install alpha_vantage, pandas
 ```
 
+To install instagram-scraper:
+```bash
+$ pip install instagram-scraper
+```
 
 ### Installing
 
