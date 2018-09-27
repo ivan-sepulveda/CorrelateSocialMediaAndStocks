@@ -12,14 +12,15 @@ You are going to need
 * Python3
 * An Instagram account
 * An Alpha Vantage account.
+* The modules/packages below
 
-You are going to need alpha_vantage with pandas support
+You are going to need to install alpha_vantage with pandas support:
 
 ```shell
 pip install alpha_vantage, pandas
 ```
 
-You're also going to need instagram-scraper:
+You're also going to need install instagram-scraper:
 ```shell
 $ pip install instagram-scraper
 ```
