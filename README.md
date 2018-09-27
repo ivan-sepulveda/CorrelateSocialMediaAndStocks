@@ -4,7 +4,7 @@ Social media is an increasingly significant aspect of our daily lives; millennia
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+Details underway
 
 ### Prerequisites
 
@@ -14,7 +14,7 @@ You are going to need alpha_vantage with pandas support
 pip install alpha_vantage, pandas
 ```
 
-To install instagram-scraper:
+You're also going to need instagram-scraper:
 ```shell
 $ pip install instagram-scraper
 ```
@@ -26,7 +26,7 @@ A step by step series of examples that tell you how to get a development env run
 Say what the step will be
 
 ```shell
-pip install alpha_vantage, pandas
+python3 install alpha_vantage, pandas
 ```
 
 
@@ -60,6 +60,7 @@ Give an example
 
 ## Deployment
 
+No notes yet.
 Add additional notes about how to deploy this on a live system
 
 ## Built With
@@ -85,6 +86,10 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 No license (yet)
 
 ## Acknowledgments
+
+* **Ivan Sepulveda** - *Initial work* - [ivan-sepulveda](https://github.com/ivan-sepulveda)
+
+* **Ivan Sepulveda** - *Initial work* - [ivan-sepulveda](https://github.com/ivan-sepulveda)
 
 * Hat tip to anyone whose code was used
 * Inspiration
