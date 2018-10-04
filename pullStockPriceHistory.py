@@ -25,8 +25,8 @@ stock_price =  "5. volume", or set volume=True.
 def pullStockPriceHistoryData(alphaVantageKey, nasdaqIndex, stock_price="4. close", series = "daily"):
     ts = timeseries.TimeSeries(key=alphaVantageKey, output_format='pandas')
     if series == "daily":
-        data, meta_data = ts.get_daily(symbol=nasdaqIndex, outputsize="full")
-        # data, meta_data = ts.get_daily(symbol=nasdaqIndex, outputsize="compact")
+        # data, meta_data = ts.get_daily(symbol=nasdaqIndex, outputsize="full")
+        data, meta_data = ts.get_daily(symbol=nasdaqIndex, outputsize="compact")
     if series == "weekly":
         data, meta_data = ts.get_weekly(symbol=nasdaqIndex)
     if series == "monthly":

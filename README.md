@@ -14,16 +14,15 @@ You are going to need
 * An Alpha Vantage account.
 * The modules/packages below
 
-You are going to need to install alpha_vantage with pandas support:
+You are going to need to install the packages below:
 
 ```shell
-pip install alpha_vantage, pandas
+pip install alpha_vantage
+pip install pandas
+pip install instagram-scraper
+(sudo) pip install twitterscraper
 ```
 
-You're also going to need install instagram-scraper:
-```shell
-$ pip install instagram-scraper
-```
 
 
 ## Deployment
@@ -32,11 +31,17 @@ No notes yet.
 
 ## Built With
 
+* [pandas](https://github.com/pandas-dev/pandas) - Used analyze data
 * [alpha_vantage](https://github.com/RomelTorres/alpha_vantage) - Used to pull stock data
+* [instagram-scraper](https://github.com/rarcega/instagram-scraper) - Used to pull instagram data
+* [twitterscraper](https://github.com/taspinar/twitterscraper) - Used to pull twitter data
+
+
+
 
 ## Contributing
 
-Please email me at iesepulveda@usfca.edu if you would like to collaborate on this project. If you are also an aspiring quant this project could significantly benefit both our skill sets.
+Please email me at iesepulveda@dons.usfca.edu if you would like to collaborate on this project. If you are also an aspiring quant this project could significantly benefit both our skill sets.
 
 ## Versioning
 
@@ -54,4 +59,7 @@ No license (yet)
 
 * **RomelTorres** - *For creating alpha_vantage* - [RomelTorres](https://github.com/RomelTorres/alpha_vantage)
 
-* **rarcega** - *For creating instagram-scraper* - [rarcega](https://github.com/rarcega)
+* **rarcega** - *For creating instagram-scraper* - [rarcega](https://github.com/rarcega/instagram-scraper)
+
+* **taspinar** - *For creating twitterscraper* - [taspinar](https://github.com/taspinar/twitterscraper)
+

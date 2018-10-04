@@ -117,7 +117,7 @@ def plotUserScaledSocialMediaVsStocks(socialPandaSeries, stockPandaSeries, compa
 
     # every month
     months = MonthLocator(range(1, 13), bymonthday=1, interval=interval)
-    monthsFmt = DateFormatter("%b '%y")
+    monthsFmt = DateFormatter("%m/%y")
 
     ax.xaxis.set_major_locator(months)
     ax.xaxis.set_major_formatter(monthsFmt)
