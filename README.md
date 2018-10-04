@@ -56,6 +56,7 @@ If project does not run correctly, it is not up to date. I'm a full time student
 No license (yet)
 
 ## Acknowledgments
+* **pandas-dev** - *For creating pandas* - [pandas-dev](https://github.com/pandas-dev/)
 
 * **RomelTorres** - *For creating alpha_vantage* - [RomelTorres](https://github.com/RomelTorres/alpha_vantage)
 
